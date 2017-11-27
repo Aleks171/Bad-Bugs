@@ -2,15 +2,25 @@
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
+    var rowHeight = 69,
+    row = randomRow()*rowHeight;
+    console.log(row);
+    
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
     this.location = {
-        x: 003,
-        y: 202
+        x: 001,
+        y: row
     };
+    this.locationYCorrector = 2.1;
+    
 };
+
+var randomRow = function() {
+       var randomRow = Math.floor(Math.random()*3 + 1);
+       return randomRow;
+}
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -44,10 +54,10 @@ var Player = function() {
                 this.location.y = this.location.y + 85;
                 break;
             case 'left':
-                this.location.x = this.location.x - 100;
+                this.location.x = this.location.x - 101;
                 break;
             case 'right':
-                this.location.x = this.location.x + 100;
+                this.location.x = this.location.x + 101;
                 break;
         }
     }
