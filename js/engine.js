@@ -93,7 +93,7 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
             if (enemy.checkCollision(player)) {
-                alert('Hit!');
+                console.log('Hit!');
             }
         });
         //player.update();

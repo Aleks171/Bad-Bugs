@@ -2,22 +2,33 @@
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    var rowHeight = 69,
-    row = randomRow()*rowHeight;
+    var rowHeight = 83,
+    //row = randomRow()*rowHeight,
+    row = randomRow(),
+    positionY,
+    bugWidth = 150;
+
+    if (row === 1) {
+        positionY = rowHeight/2;
+    } else {
+        positionY = row*rowHeight - rowHeight/2;
+    }
     
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
     this.location = {
         x: 001,
-        y: row
+        y: positionY
     };
-    this.locationYCorrector = 2.1;
-    
+    this.getBudWidth = function() {
+        return bugWidth;
+    }
 };
 
 var randomRow = function() {
-       var randomRow = Math.floor(Math.random()*3 + 1);
+       var randomRow = Math.ceil(Math.random()*3);
+       console.log(randomRow);
        return randomRow;
 }
 
@@ -30,7 +41,9 @@ Enemy.prototype.update = function(dt) {
     this.location.x += 1;
 };
 Enemy.prototype.checkCollision = function(player) {
-    if ((this.location.x === player.location.x) && (this.location.y === player.location.y)) {
+    if ((player.location.x >= (this.location.x - this.getBudWidth()/2)) && 
+        (player.location.x <= (this.location.x + this.getBudWidth()/2)) &&
+        player.location.y === this.location.y) {
         return true;
     } else {
         return false;
@@ -49,15 +62,15 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
     this.location = {
         x: 202,
-        y: 276
+        y: 41.5
     };
     this.handleInput = function(key) {
         switch (key) {
             case 'up':
-                this.location.y = this.location.y - 69;
+                this.location.y = this.location.y - 83;
                 break;
             case 'down':
-                this.location.y = this.location.y + 69;
+                this.location.y = this.location.y + 83;
                 break;
             case 'left':
                 this.location.x = this.location.x - 101;
