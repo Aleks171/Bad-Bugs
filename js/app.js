@@ -4,7 +4,6 @@ var Enemy = function() {
     // we've provided one for you to get started
     var rowHeight = 69,
     row = randomRow()*rowHeight;
-    console.log(row);
     
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -30,6 +29,13 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     this.location.x += 1;
 };
+Enemy.prototype.checkCollision = function(player) {
+    if ((this.location.x === player.location.x) && (this.location.y === player.location.y)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -43,15 +49,15 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
     this.location = {
         x: 202,
-        y: 404
+        y: 276
     };
     this.handleInput = function(key) {
         switch (key) {
             case 'up':
-                this.location.y = this.location.y - 85;
+                this.location.y = this.location.y - 69;
                 break;
             case 'down':
-                this.location.y = this.location.y + 85;
+                this.location.y = this.location.y + 69;
                 break;
             case 'left':
                 this.location.x = this.location.x - 101;
@@ -70,6 +76,7 @@ Player.prototype = Object.create(Enemy.prototype);
 var allEnemies = [];
 var enemy = new Enemy();
 var player = new Player();
+console.log(player);
 allEnemies.push(enemy);
 //allEnemies.push(player);
 
