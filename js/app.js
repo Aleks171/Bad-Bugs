@@ -1,10 +1,10 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(row, rowHeight) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    var rowHeight = 83,
+    var rowHeight = rowHeight,
     //row = randomRow()*rowHeight,
-    row = randomRow(),
+    row = row,
     positionY,
     bugWidth = 150;
 
@@ -25,12 +25,6 @@ var Enemy = function() {
         return bugWidth;
     }
 };
-
-var randomRow = function() {
-       var randomRow = Math.ceil(Math.random()*3);
-       console.log(randomRow);
-       return randomRow;
-}
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -88,6 +82,8 @@ Player.prototype = Object.create(Enemy.prototype);
 // Place the player object in a variable called player
 var allEnemies = [];
 var enemy = new Enemy();
+
+
 var player = new Player();
 console.log(player);
 allEnemies.push(enemy);

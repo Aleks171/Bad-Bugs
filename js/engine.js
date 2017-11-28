@@ -36,6 +36,10 @@ var Engine = (function(global) {
             rows.push(new Row(x, 83));
         }
     }
+    for (var i = 0; i < rows.length; i += 1) {
+        var row = rows[i];
+        row.addEnemy(new Enemy(row.rowNum, row.rowWidth));
+    }
     console.log('Rows: ', rows);
 
     canvas.width = 505;
@@ -104,13 +108,15 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
-        allEnemies.forEach(function(enemy) {
+        /*allEnemies.forEach(function(enemy) {
             enemy.update(dt);
             if (enemy.checkCollision(player)) {
                 console.log('Hit!');
             }
-        });
+        });*/
         //player.update();
+
+
     }
 
     /* This function initially draws the "game level", it will then call
@@ -166,11 +172,16 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        allEnemies.forEach(function(enemy) {
+        /*allEnemies.forEach(function(enemy) {
             enemy.render();
-        });
+        });*/
 
         player.render();
+        for (var i = 0; i < rows.length; i += 1) {
+            rows[i].enemies.forEach(function(enemy){
+                enemy.render();
+            })
+        }
     }
 
     /* This function does nothing but it could have been a good place to
