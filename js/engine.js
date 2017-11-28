@@ -22,7 +22,21 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
-        lastTime;
+        lastTime,
+        rowImages = [
+            'images/water-block.png',   // Top row is water
+            'images/stone-block.png',   // Row 1 of 3 of stone
+            'images/stone-block.png',   // Row 2 of 3 of stone
+            'images/stone-block.png',   // Row 3 of 3 of stone
+            'images/grass-block.png',   // Row 1 of 2 of grass
+            'images/grass-block.png'
+        ];
+    for (var x = 0; x < rowImages.length; x += 1) {
+        if (rowImages[x] === 'images/stone-block.png') {
+            rows.push(new Row(x, 83));
+        }
+    }
+    console.log('Rows: ', rows);
 
     canvas.width = 505;
     canvas.height = 606;
@@ -109,15 +123,15 @@ var Engine = (function(global) {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
-        var rowImages = [
+        /*var rowImages = [
                 'images/water-block.png',   // Top row is water
                 'images/stone-block.png',   // Row 1 of 3 of stone
                 'images/stone-block.png',   // Row 2 of 3 of stone
                 'images/stone-block.png',   // Row 3 of 3 of stone
                 'images/grass-block.png',   // Row 1 of 2 of grass
                 'images/grass-block.png'    // Row 2 of 2 of grass
-            ],
-            numRows = 6,
+            ],*/
+            var numRows = 6,
             numCols = 5,
             row, col;
         
