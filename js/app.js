@@ -21,7 +21,7 @@ var Enemy = function(row, rowHeight) {
         x: 001,
         y: positionY
     };
-    this.getBudWidth = function() {
+    this.getBugWidth = function() {
         return bugWidth;
     }
 };
@@ -35,8 +35,8 @@ Enemy.prototype.update = function(dt) {
     this.location.x += 1;
 };
 Enemy.prototype.checkCollision = function(player) {
-    if ((player.location.x >= (this.location.x - this.getBudWidth()/2)) && 
-        (player.location.x <= (this.location.x + this.getBudWidth()/2)) &&
+    if ((player.location.x >= (this.location.x - this.getBugWidth()/2)) && 
+        (player.location.x <= (this.location.x + this.getBugWidth()/2)) &&
         player.location.y === this.location.y) {
         return true;
     } else {

@@ -33,13 +33,10 @@ var Engine = (function(global) {
         ];
     for (var x = 0; x < rowImages.length; x += 1) {
         if (rowImages[x] === 'images/stone-block.png') {
-            rows.push(new Row(x, 83));
+            rows.push(new Row(x, 83, 101*5));
         }
     }
-    for (var i = 0; i < rows.length; i += 1) {
-        var row = rows[i];
-        row.addEnemy(new Enemy(row.rowNum, row.rowWidth));
-    }
+    
     console.log('Rows: ', rows);
 
     canvas.width = 505;
@@ -115,7 +112,11 @@ var Engine = (function(global) {
             }
         });*/
         //player.update();
-
+        for (var i = 0; i < rows.length; i += 1) {
+            rows[i].enemies.forEach(function(enemy){
+                enemy.update();
+            })
+        }
 
     }
 
@@ -177,11 +178,16 @@ var Engine = (function(global) {
         });*/
 
         player.render();
-        for (var i = 0; i < rows.length; i += 1) {
-            rows[i].enemies.forEach(function(enemy){
+        for (var i = 0, row; i < rows.length; i += 1) {
+            row = rows[i];
+            if (row.isEnemyOutOfRow()) {
+                row.removeEnemy();
+            }
+            row.enemies.forEach(function(enemy){
                 enemy.render();
             })
         }
+
     }
 
     /* This function does nothing but it could have been a good place to
