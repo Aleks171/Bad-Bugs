@@ -3,6 +3,7 @@ var Row = function (rowNum, rowHeight, rowWidth) {
 	this.rowNum = rowNum;
 	this.rowHeight = rowHeight;
 	this.rowWidth = rowWidth;
+	this.rowStartPosition = 0;
 	this.enemies = [];
 	this.removeEnemy = function() {
 		this.enemies.shift();
@@ -17,26 +18,28 @@ var Row = function (rowNum, rowHeight, rowWidth) {
 			}
 		}
 		return false;
-		
-	}
+	};
+	this.currentDistanceBetweenEnemies = randomDistance();
+	this.generateEnemy = function() {
+		var enemy = this.enemies[this.enemies.length-1];
+		if (enemy) {
+			if ((this.rowStartPosition + (enemy.location.x - enemy.getBugWidth()/2)) > this.currentDistanceBetweenEnemies) {
+				this.addEnemy(new Enemy(this.rowNum, this.rowHeight));
+				this.currentDistanceBetweenEnemies = randomDistance();
+			}
+		} else {
+			this.addEnemy(new Enemy(this.rowNum, this.rowHeight));
+		}
+	};
 	this.addEnemy = function(enemy) {
 		this.enemies.push(enemy);
 	};
-	this.generateEnemy = function() {
-		var spanTime = randomTime();
-		setTimeout(function(){
-			that.addEnemy(new Enemy(that.rowNum, that.rowHeight));
-			that.generateEnemy();
-		}, spanTime);
-	};
-	this.generateEnemy();
-}
+};
 
-var randomTime = function() {
-	var min = 1700,
-		max = 4000,
-		time = ((max-min) * Math.random())+min;
-	return time;
+var randomDistance = function() {
+	var distances = [110, 220],
+	number = Math.round(Math.random());
+	return distances[number];
 };
 
 var rows = [];

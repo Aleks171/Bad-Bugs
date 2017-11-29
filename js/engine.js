@@ -180,6 +180,7 @@ var Engine = (function(global) {
         player.render();
         for (var i = 0, row; i < rows.length; i += 1) {
             row = rows[i];
+            row.generateEnemy();
             if (row.isEnemyOutOfRow()) {
                 row.removeEnemy();
             }
