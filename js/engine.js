@@ -25,10 +25,10 @@ var Engine = (function(global) {
         lastTime,
         rowImages = [
             'images/water-block.png',   // Top row is water
-            'images/stone-block.png',   // Row 1 of 3 of stone
-            'images/stone-block.png',   // Row 2 of 3 of stone
-            'images/stone-block.png',   // Row 3 of 3 of stone
-            'images/stone-block.png',   // Row 4 of 3 of stone
+            'images/stone-block.png',   // Row 1 of 4 of stone
+            'images/stone-block.png',   // Row 2 of 4 of stone
+            'images/stone-block.png',   // Row 3 of 4 of stone
+            'images/stone-block.png',   // Row 4 of 4 of stone
             'images/grass-block.png',   // Row 5 of 2 of grass
             'images/grass-block.png'
         ];
