@@ -1,18 +1,8 @@
 // Enemies our player must avoid
-var Enemy = function(row, rowHeight) {
+var Enemy = function(positionY) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    var rowHeight = rowHeight,
-    //row = randomRow()*rowHeight,
-    row = row,
-    positionY,
-    bugWidth = 150;
-
-    if (row === 1) {
-        positionY = rowHeight/2;
-    } else {
-        positionY = row*rowHeight - rowHeight/2;
-    }
+    var bugWidth = 150;
     
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
