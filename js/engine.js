@@ -37,11 +37,13 @@ var Engine = (function(global) {
             rows.push(new Row(x, 83, 101*5));
         }
     }
-    
+
     console.log('Rows: ', rows);
 
     canvas.width = 505;
     canvas.height = 606;
+    var score = new Score(0, 30, 5000);
+
     doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -118,7 +120,6 @@ var Engine = (function(global) {
                 enemy.update();
             })
         }
-
     }
 
     /* This function initially draws the "game level", it will then call
@@ -162,6 +163,11 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
+
+        //Text test
+        //ctx.font = "30px Arial";
+        //ctx.fillText("Score: ",0,30);
+        score.update();
 
         renderEntities();
     }
