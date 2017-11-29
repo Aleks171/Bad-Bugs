@@ -1,16 +1,17 @@
 // Enemies our player must avoid
-var Enemy = function(positionY) {
+var Enemy = function(positionY, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    var bugWidth = 150;
+    var bugWidth = 110;
     
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
     this.location = {
-        x: 001,
+        x: -bugWidth,
         y: positionY
     };
+    this.speed = speed;
     this.getBugWidth = function() {
         return bugWidth;
     }
@@ -22,7 +23,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.location.x += 1;
+    this.location.x += this.speed;
 };
 Enemy.prototype.checkCollision = function(player) {
     if ((player.location.x >= (this.location.x - this.getBugWidth()/2)) && 

@@ -26,17 +26,17 @@ var Row = function (rowNum, rowHeight, rowWidth) {
 		}
 		return false;
 	};
-	this.speedOfEnemies = randomSpeed();
-	this.currentDistanceBetweenEnemies = randomDistance();
+	this.speedOfEnemiesMultiplicator = Row.randomNumber();
+	this.distanceBetweenEnemiesMultiplicator = Row.randomNumber();
 	this.generateEnemy = function() {
 		var enemy = this.enemies[this.enemies.length-1];
 		if (enemy) {
-			if ((this.rowStartPosition + (enemy.location.x - enemy.getBugWidth()/2)) > this.currentDistanceBetweenEnemies) {
-				this.addEnemy(new Enemy(this.enemyPositionInRow));
-				this.currentDistanceBetweenEnemies = randomDistance();
+			if ((this.rowStartPosition + enemy.location.x) > enemy.getBugWidth()*this.distanceBetweenEnemiesMultiplicator) {
+				this.addEnemy(new Enemy(this.enemyPositionInRow, this.speedOfEnemiesMultiplicator));
+				this.distanceBetweenEnemiesMultiplicator = Row.randomNumber();
 			}
 		} else {
-			this.addEnemy(new Enemy(this.enemyPositionInRow));
+			this.addEnemy(new Enemy(this.enemyPositionInRow, this.speedOfEnemiesMultiplicator));
 		}
 	};
 	this.addEnemy = function(enemy) {
@@ -44,14 +44,8 @@ var Row = function (rowNum, rowHeight, rowWidth) {
 	};
 };
 
-var randomDistance = function() {
-	var distances = [110, 220],
-	number = Math.round(Math.random());
-	return distances[number];
-};
-
-var randomSpeed = function() {
+Row.randomNumber = function() {
 	return Math.round(Math.random() + 1);
-}
+};
 
 var rows = [];
