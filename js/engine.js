@@ -31,7 +31,8 @@ var Engine = (function(global) {
             'images/stone-block.png',   // Row 4 of 4 of stone
             'images/grass-block.png',   // Row 5 of 2 of grass
             'images/grass-block.png'
-        ];
+        ],
+        score = new Score(0, 30, ctx);
     for (var x = 0; x < rowImages.length; x += 1) {
         if (rowImages[x] === 'images/stone-block.png') {
             rows.push(new Row(x, 83, 101*5));
@@ -42,7 +43,6 @@ var Engine = (function(global) {
 
     canvas.width = 505;
     canvas.height = 606;
-    var score = new Score(0, 30, 5000);
 
     doc.body.appendChild(canvas);
 
@@ -83,6 +83,7 @@ var Engine = (function(global) {
     function init() {
         reset();
         lastTime = Date.now();
+        score.init();
         main();
     }
 
@@ -163,11 +164,6 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
-
-        //Text test
-        //ctx.font = "30px Arial";
-        //ctx.fillText("Score: ",0,30);
-        score.update();
 
         renderEntities();
     }
