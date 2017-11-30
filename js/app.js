@@ -64,7 +64,13 @@ var Player = function() {
                 this.location.x = this.location.x + 101;
                 break;
         }
-    }
+    };
+    this.getLocationX = function() {
+        return this.location.x;
+    };
+    this.getLocationY = function() {
+        return this.location.y;
+    };
 }
 Player.prototype = Object.create(Enemy.prototype);
 

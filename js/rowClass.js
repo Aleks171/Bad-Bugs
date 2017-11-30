@@ -1,4 +1,4 @@
-var Row = function (rowNum, rowHeight, rowWidth, type) {
+var Row = function (rowNum, rowHeight, rowWidth, type, player) {
 	var that = this;
 	this.rowNum = rowNum;
 	this.rowHeight = rowHeight;
@@ -48,6 +48,13 @@ var Row = function (rowNum, rowHeight, rowWidth, type) {
 	this.addEnemy = function(enemy) {
 		this.enemies.push(enemy);
 	};
+	this.isPlayerOnRow = function() {
+		if (-this.rowHeight/2 === player.getLocationY()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 };
 
 Row.randomNumber = function() {

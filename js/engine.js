@@ -35,10 +35,10 @@ var Engine = (function(global) {
         score = new Score(0, 30, ctx);
     for (var x = 0; x < rowImages.length; x += 1) {
         if (rowImages[x] === 'images/water-block.png') {
-            rows.push(new Row(x, 83, 101*5, 'water-block'));
+            rows.push(new Row(x, 83, 101*5, 'water-block', player));
         }
         if (rowImages[x] === 'images/stone-block.png') {
-            rows.push(new Row(x, 83, 101*5, 'stone-block'));
+            rows.push(new Row(x, 83, 101*5, 'stone-block', player));
         }
     }
 
@@ -86,7 +86,6 @@ var Engine = (function(global) {
     function init() {
         reset();
         lastTime = Date.now();
-        score.init();
         main();
     }
 
@@ -167,6 +166,7 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
+        score.init();
 
         renderEntities();
     }
@@ -194,6 +194,12 @@ var Engine = (function(global) {
                 row.enemies.forEach(function(enemy){
                     enemy.render();
                 });
+            } else {
+                if (row.getType() === 'water-block') {
+                    if (row.isPlayerOnRow()) {
+                        score.update();
+                    }
+                }
             }
         }
 
