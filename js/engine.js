@@ -34,8 +34,11 @@ var Engine = (function(global) {
         ],
         score = new Score(0, 30, ctx);
     for (var x = 0; x < rowImages.length; x += 1) {
+        if (rowImages[x] === 'images/water-block.png') {
+            rows.push(new Row(x, 83, 101*5, 'water-block'));
+        }
         if (rowImages[x] === 'images/stone-block.png') {
-            rows.push(new Row(x, 83, 101*5));
+            rows.push(new Row(x, 83, 101*5, 'stone-block'));
         }
     }
 
@@ -183,13 +186,15 @@ var Engine = (function(global) {
         player.render();
         for (var i = 0, row; i < rows.length; i += 1) {
             row = rows[i];
-            row.generateEnemy();
-            if (row.isEnemyOutOfRow()) {
-                row.removeEnemy();
+            if (row.getType() === 'stone-block') {
+                row.generateEnemy();
+                if (row.isEnemyOutOfRow()) {
+                    row.removeEnemy();
+                }
+                row.enemies.forEach(function(enemy){
+                    enemy.render();
+                });
             }
-            row.enemies.forEach(function(enemy){
-                enemy.render();
-            })
         }
 
     }

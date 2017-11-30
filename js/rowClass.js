@@ -1,17 +1,23 @@
-var Row = function (rowNum, rowHeight, rowWidth) {
+var Row = function (rowNum, rowHeight, rowWidth, type) {
 	var that = this;
 	this.rowNum = rowNum;
 	this.rowHeight = rowHeight;
 	this.rowWidth = rowWidth;
 	this.enemyPositionInRow = (function(){
+		if (that.rowNum === 0) {
+			return -that.rowHeight/2;
+		}
 		if (that.rowNum === 1) {
-			return that.enemyPositionInRow = that.rowHeight/2;
+			return that.rowHeight/2;
 		} else {
-        	return that.enemyPositionInRow = that.rowNum*that.rowHeight - that.rowHeight/2;
+        	return that.rowNum*that.rowHeight - that.rowHeight/2;
    		}
 	})();
 	this.rowStartPosition = 0;
 	this.enemies = [];
+	this.getType = function() {
+		return type;
+	};
 	this.removeEnemy = function() {
 		this.enemies.shift();
 	};
