@@ -45,12 +45,12 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 var Player = function(limitX, limitY) {
     this.sprite = 'images/char-boy.png';
-    this.limitX = 404;
-    this.limitY = 498;
+    this.limitX = limitX;
+    this.limitY = limitY;
     this.moveStepX = 101;
     this.moveStepY = 83;
     this.location = {
-        x: 000,
+        x: 0,
         y: 41.5
     };
     this.handleInput = function(key) {
@@ -77,7 +77,7 @@ var Player = function(limitX, limitY) {
                     break;
                 }
             case 'right':
-                if ((this.location.x + this.moveStepX) > this.limitX) {
+                if ((this.location.x + this.moveStepX) >= this.limitX) {
                     break;
                 } else {
                     this.location.x = this.location.x + this.moveStepX;
@@ -101,21 +101,8 @@ var allEnemies = [];
 var enemy = new Enemy();
 
 
-var player = new Player();
-console.log(player);
+
 allEnemies.push(enemy);
 //allEnemies.push(player);
 
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
-document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-    };
-
-    player.handleInput(allowedKeys[e.keyCode]);
-});

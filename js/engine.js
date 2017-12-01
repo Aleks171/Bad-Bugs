@@ -14,6 +14,8 @@
  */
 
 var Engine = (function(global) {
+
+
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
@@ -32,7 +34,31 @@ var Engine = (function(global) {
             'images/grass-block.png',   // Row 5 of 2 of grass
             'images/grass-block.png'
         ],
-        score = new Score(0, 30, ctx);
+        // Rows info
+        numRows = rowImages.length,
+        numCols = 5,
+        imageWidth = 101,
+        imageHeight = 83,
+        score = new Score(0, 30, ctx),
+        player = new Player(numCols * imageWidth, (numRows-1) * imageHeight);
+
+    // This listens for key presses and sends the keys to your
+    // Player.handleInput() method. You don't need to modify this.
+    document.addEventListener('keyup', function(e) {
+        var allowedKeys = {
+            37: 'left',
+            38: 'up',
+            39: 'right',
+            40: 'down'
+        };
+
+        player.handleInput(allowedKeys[e.keyCode]);
+    });
+
+    // Canvas dimensions
+    canvas.width = 505;
+    canvas.height = 664;
+
     for (var x = 0; x < rowImages.length; x += 1) {
         if (rowImages[x] === 'images/water-block.png') {
             rows.push(new Row(x, 83, 101*5, 'water-block', player));
@@ -43,9 +69,8 @@ var Engine = (function(global) {
     }
 
     console.log('Rows: ', rows);
-
-    canvas.width = 505;
-    canvas.height = 707;
+    
+    console.log(player);
 
     doc.body.appendChild(canvas);
 
@@ -143,9 +168,11 @@ var Engine = (function(global) {
                 'images/grass-block.png',   // Row 1 of 2 of grass
                 'images/grass-block.png'    // Row 2 of 2 of grass
             ],*/
-            var numRows = 7,
+            /*var numRows = 7,
             numCols = 5,
-            row, col;
+            row, col,
+            imageWidth = 101,
+            imageHeight = 83;*/
         
         // Before drawing, clear existing canvas
         ctx.clearRect(0,0,canvas.width,canvas.height)
@@ -163,7 +190,7 @@ var Engine = (function(global) {
                  * so that we get the benefits of caching these images, since
                  * we're using them over and over.
                  */
-                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+                ctx.drawImage(Resources.get(rowImages[row]), col * imageWidth, row * imageHeight);
             }
         }
         score.init();
