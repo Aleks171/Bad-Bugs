@@ -45,7 +45,7 @@ var Engine = (function(global) {
     console.log('Rows: ', rows);
 
     canvas.width = 505;
-    canvas.height = 606;
+    canvas.height = 707;
 
     doc.body.appendChild(canvas);
 
@@ -143,7 +143,7 @@ var Engine = (function(global) {
                 'images/grass-block.png',   // Row 1 of 2 of grass
                 'images/grass-block.png'    // Row 2 of 2 of grass
             ],*/
-            var numRows = 6,
+            var numRows = 7,
             numCols = 5,
             row, col;
         

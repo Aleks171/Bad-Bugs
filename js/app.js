@@ -43,26 +43,46 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function() {
+var Player = function(limitX, limitY) {
     this.sprite = 'images/char-boy.png';
+    this.limitX = 404;
+    this.limitY = 498;
+    this.moveStepX = 101;
+    this.moveStepY = 83;
     this.location = {
-        x: 202,
+        x: 000,
         y: 41.5
     };
     this.handleInput = function(key) {
         switch (key) {
             case 'up':
-                this.location.y = this.location.y - 83;
-                break;
+                if ((this.location.y - this.moveStepY) < -41.5) {
+                    break;
+                } else {
+                    this.location.y = this.location.y - this.moveStepY;
+                    break;
+                }
             case 'down':
-                this.location.y = this.location.y + 83;
-                break;
+                if ((this.location.y + this.moveStepY) > this.limitY) {
+                    break;
+                } else {
+                    this.location.y = this.location.y + this.moveStepY;
+                    break;
+                }
             case 'left':
-                this.location.x = this.location.x - 101;
-                break;
+                if ((this.location.x - this.moveStepX) < 0) {
+                    break;
+                } else {
+                    this.location.x = this.location.x - this.moveStepX;
+                    break;
+                }
             case 'right':
-                this.location.x = this.location.x + 101;
-                break;
+                if ((this.location.x + this.moveStepX) > this.limitX) {
+                    break;
+                } else {
+                    this.location.x = this.location.x + this.moveStepX;
+                    break;
+                }
         }
     };
     this.getLocationX = function() {
