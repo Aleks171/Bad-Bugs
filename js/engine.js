@@ -40,7 +40,7 @@ var Engine = (function(global) {
         imageWidth = 101,
         imageHeight = 83,
         score = new Score(0, 30, ctx),
-        player = new Player(numCols * imageWidth, (numRows-1) * imageHeight);
+        player = new Player(numCols * imageWidth, (numRows-1) * imageHeight, imageWidth, imageHeight);
 
     // This listens for key presses and sends the keys to your
     // Player.handleInput() method. You don't need to modify this.

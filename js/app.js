@@ -43,20 +43,21 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function(limitX, limitY) {
+var Player = function(limitX, limitY, moveStepX, moveStepY) {
     this.sprite = 'images/char-boy.png';
+    this.playerWidth = 101;
     this.limitX = limitX;
     this.limitY = limitY;
-    this.moveStepX = 101;
-    this.moveStepY = 83;
+    this.moveStepX = moveStepX;
+    this.moveStepY = moveStepY;
     this.location = {
-        x: 0,
-        y: 41.5
+        x: (this.limitX - this.playerWidth)/2,
+        y: this.limitY - moveStepY/2
     };
     this.handleInput = function(key) {
         switch (key) {
             case 'up':
-                if ((this.location.y - this.moveStepY) < -41.5) {
+                if ((this.location.y - this.moveStepY) < -this.moveStepY) {
                     break;
                 } else {
                     this.location.y = this.location.y - this.moveStepY;
