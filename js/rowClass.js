@@ -10,7 +10,7 @@ var Row = function (rowNum, rowHeight, rowWidth, type, player) {
 		if (that.rowNum === 1) {
 			return that.rowHeight/2;
 		} else {
-        	return that.rowNum*that.rowHeight - that.rowHeight/2;
+        	return that.rowNum * that.rowHeight - that.rowHeight/2;
    		}
 	})();
 	this.rowStartPosition = 0;
@@ -32,17 +32,17 @@ var Row = function (rowNum, rowHeight, rowWidth, type, player) {
 		}
 		return false;
 	};
-	this.speedOfEnemiesMultiplicator = Row.randomNumber();
+	this.speedOfEnemies = Row.randomNumber();
 	this.distanceBetweenEnemiesMultiplicator = Row.randomNumber();
 	this.generateEnemy = function() {
 		var enemy = this.enemies[this.enemies.length-1];
 		if (enemy) {
-			if ((this.rowStartPosition + enemy.location.x) > enemy.getBugWidth()*this.distanceBetweenEnemiesMultiplicator) {
-				this.addEnemy(new Enemy(this.enemyPositionInRow, this.speedOfEnemiesMultiplicator));
+			if ((this.rowStartPosition + enemy.location.x) > enemy.getBugWidth() * this.distanceBetweenEnemiesMultiplicator) {
+				this.addEnemy(new Enemy(this.enemyPositionInRow, this.speedOfEnemies));
 				this.distanceBetweenEnemiesMultiplicator = Row.randomNumber();
 			}
 		} else {
-			this.addEnemy(new Enemy(this.enemyPositionInRow, this.speedOfEnemiesMultiplicator));
+			this.addEnemy(new Enemy(this.enemyPositionInRow, this.speedOfEnemies));
 		}
 	};
 	this.addEnemy = function(enemy) {

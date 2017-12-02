@@ -42,23 +42,12 @@ var Engine = (function(global) {
         score = new Score(0, 30, ctx),
         player = new Player(numCols * imageWidth, (numRows-1) * imageHeight, imageWidth, imageHeight);
 
-    // This listens for key presses and sends the keys to your
-    // Player.handleInput() method. You don't need to modify this.
-    document.addEventListener('keyup', function(e) {
-        var allowedKeys = {
-            37: 'left',
-            38: 'up',
-            39: 'right',
-            40: 'down'
-        };
-
-        player.handleInput(allowedKeys[e.keyCode]);
-    });
 
     // Canvas dimensions
     canvas.width = 505;
     canvas.height = 664;
 
+    // Row instantiation
     for (var x = 0; x < rowImages.length; x += 1) {
         if (rowImages[x] === 'images/water-block.png') {
             rows.push(new Row(x, 83, 101*5, 'water-block', player));
@@ -111,6 +100,7 @@ var Engine = (function(global) {
     function init() {
         reset();
         lastTime = Date.now();
+        player.init();
         main();
     }
 

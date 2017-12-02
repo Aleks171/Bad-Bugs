@@ -44,6 +44,7 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function(limitX, limitY, moveStepX, moveStepY) {
+    var that = this;
     this.sprite = 'images/char-boy.png';
     this.playerWidth = 101;
     this.limitX = limitX;
@@ -97,6 +98,19 @@ var Player = function(limitX, limitY, moveStepX, moveStepY) {
             x: (this.limitX - this.playerWidth)/2,
             y: this.limitY - moveStepY/2
         };
+    };
+    this.init = function() {
+        // Key press listener for the player
+        document.addEventListener('keyup', function(e) {
+        var allowedKeys = {
+            37: 'left',
+            38: 'up',
+            39: 'right',
+            40: 'down'
+        };
+
+        that.handleInput(allowedKeys[e.keyCode]);
+        });
     };
 }
 Player.prototype = Object.create(Enemy.prototype);
