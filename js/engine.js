@@ -225,6 +225,7 @@ var Engine = (function(global) {
                 if (row.getType() === 'water-block') {
                     if (row.isPlayerOnRow()) {
                         score.update();
+                        player.resetLocation();
                     }
                 }
             }

@@ -92,6 +92,12 @@ var Player = function(limitX, limitY, moveStepX, moveStepY) {
     this.getLocationY = function() {
         return this.location.y;
     };
+    this.resetLocation = function() {
+        this.location = {
+            x: (this.limitX - this.playerWidth)/2,
+            y: this.limitY - moveStepY/2
+        };
+    };
 }
 Player.prototype = Object.create(Enemy.prototype);
 
