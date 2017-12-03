@@ -1,8 +1,9 @@
-var Row = function (rowNum, rowHeight, rowWidth, columns, type, player) {
+var Row = function (rowNum, rowHeight, rowBlockWidth, columns, type, image, player) {
 	var that = this;
 	this.rowNum = rowNum;
+	this.rowBlockWidth = rowBlockWidth;
+	this.rowWidth = this.rowBlockWidth * columns;
 	this.rowHeight = rowHeight;
-	this.rowWidth = rowWidth;
 	this.rowStartPosition = 0;
 	this.columns = columns;
 	this.enemyPositionInRow = (function(){
@@ -19,6 +20,9 @@ var Row = function (rowNum, rowHeight, rowWidth, columns, type, player) {
 	this.getType = function() {
 		return type;
 	};
+	this.getImage = function() {
+		return image;
+	}
 	this.removeEnemy = function() {
 		this.enemies.shift();
 	};
@@ -57,6 +61,13 @@ var Row = function (rowNum, rowHeight, rowWidth, columns, type, player) {
 		}
 	}
 };
+
+Row.prototype.render = function() {
+	for (var i = 0, column; i < this.columns; i +=1) {
+		column = i;
+		ctx.drawImage(Resources.get(this.getImage()), column * this.rowBlockWidth, this.rowNum * this.rowHeight);
+	}
+}
 
 Row.randomNumber = function() {
 	return Math.round(Math.random() + 1);

@@ -19,17 +19,17 @@ var Board = function(player, Row) {
 	function render() {
 
 	}
-	function addRow(rowType) {
-		this.rows.push(new Row(x, this.imageHeight, this.rowWidth, this.numColumns, rowType, this.player));
+	function addRow(rowType, rowImage) {
+		this.rows.push(new Row(x, this.imageHeight, this.imageWidth, this.numColumns, rowType, rowImage, this.player));
 	}
 	function rowsInstantiation() {
     	for (var x = 0, row; x < rowsLength; x += 1) {
     		row = rowImages[x];
 	        if (row === 'images/water-block.png') {
-	            addRow('water-block');
+	            addRow('water-block', 'images/water-block.png');
 	        }
 	        if (row === 'images/stone-block.png') {
-	            addRow('stone-block');
+	            addRow('stone-block', 'images/stone-block.png');
 	        }
     	}
     }
