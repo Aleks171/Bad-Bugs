@@ -12,15 +12,15 @@ var Board = function(player, Row) {
 
     this.imageWidth = 101;
     this.imageHeight = 83;
-    this.numCols = 5;
-	this.rowWidth = this.imageWidth * this.numCols;
+    this.numColumns = 5;
+	this.rowWidth = this.imageWidth * this.numColumns;
 	this.player = player;
 	this.rows = [];
 	function render() {
-		
+
 	}
 	function addRow(rowType) {
-		this.rows.push(new Row(x, this.imageHeight, this.rowWidth, rowType, this.player));
+		this.rows.push(new Row(x, this.imageHeight, this.rowWidth, this.numColumns, rowType, this.player));
 	}
 	function rowsInstantiation() {
     	for (var x = 0, row; x < rowsLength; x += 1) {

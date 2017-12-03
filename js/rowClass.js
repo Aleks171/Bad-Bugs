@@ -1,8 +1,10 @@
-var Row = function (rowNum, rowHeight, rowWidth, type, player) {
+var Row = function (rowNum, rowHeight, rowWidth, columns, type, player) {
 	var that = this;
 	this.rowNum = rowNum;
 	this.rowHeight = rowHeight;
 	this.rowWidth = rowWidth;
+	this.rowStartPosition = 0;
+	this.columns = columns;
 	this.enemyPositionInRow = (function(){
 		if (that.rowNum === 0) {
 			return -that.rowHeight/2;
@@ -13,7 +15,6 @@ var Row = function (rowNum, rowHeight, rowWidth, type, player) {
         	return that.rowNum * that.rowHeight - that.rowHeight/2;
    		}
 	})();
-	this.rowStartPosition = 0;
 	this.enemies = [];
 	this.getType = function() {
 		return type;
