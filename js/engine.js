@@ -50,10 +50,10 @@ var Engine = (function(global) {
     // Row instantiation
     for (var x = 0; x < rowImages.length; x += 1) {
         if (rowImages[x] === 'images/water-block.png') {
-            rows.push(new Row(x, 83, 101*5, 'water-block', player));
+            rows.push(new Row(x, 83, 101, numCols, 'water-block', 'images/water-block.png', player));
         }
         if (rowImages[x] === 'images/stone-block.png') {
-            rows.push(new Row(x, 83, 101*5, 'stone-block', player));
+            rows.push(new Row(x, 83, 101, numCols, 'stone-block', player));
         }
     }
 
@@ -183,7 +183,7 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * imageWidth, row * imageHeight);
             }
         }
-        score.init();
+        score.render();
 
         renderEntities();
     }
