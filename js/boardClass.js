@@ -26,21 +26,24 @@
 				row.render();
 			});
 		};
-		function addRow(rowType, rowImage) {
-			this.rows.push(new Row(x, this.imageHeight, this.imageWidth, this.numColumns, rowType, rowImage, this.player));
+		this.addRow = function(rowNum, rowType, rowImage) {
+			this.rows.push(new Row(rowNum, this.imageHeight, this.imageWidth, this.numColumns, rowType, rowImage, this.player));
 		}
-		function rowsInstantiation() {
-	    	for (var x = 0, row; x < rowsLength; x += 1) {
-	    		row = rowImages[x];
+		this.instantiateRows = function() {
+	    	for (var rowNum = 0, row; rowNum < rowsLength; rowNum += 1) {
+	    		row = rowImages[rowNum];
 		        if (row === 'images/water-block.png') {
-		            addRow('water-block', 'images/water-block.png');
+		            this.addRow(rowNum, 'water-block', 'images/water-block.png');
 		        }
 		        if (row === 'images/stone-block.png') {
-		            addRow('stone-block', 'images/stone-block.png');
+		            this.addRow(rowNum, 'stone-block', 'images/stone-block.png');
+		        }
+		        if (row === 'images/grass-block.png') {
+		        	this.addRow(rowNum, 'grass-block', 'images/grass-block.png');
 		        }
 	    	}
-	    }
-	}
+	    };
+	};
 	app.Board = Board;
 	global.App = app;
 })(this);

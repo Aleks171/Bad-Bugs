@@ -27,20 +27,10 @@ var Game = (function(global) {
         score,
         player,
         board;
-    // Load images
- 	Resources.load([
-        'images/stone-block.png',
-        'images/water-block.png',
-        'images/grass-block.png',
-        'images/enemy-bug.png',
-        'images/char-boy.png'
-    ]);
-    Resources.onReady(init);
 
     console.log('Score: ', Score);
 
     function init() {
-		Resources.
     	// Canvas dimensions
     	canvas.width = 505;
     	canvas.height = 664;
@@ -48,6 +38,9 @@ var Game = (function(global) {
     	score = new Score(0, 30, ctx);
         player = new Player(numCols * imageWidth, (numRows-1) * imageHeight, imageWidth, imageHeight);
         board = new Board(player, Row);
+        board.instantiateRows();
+        console.log('Board: ', board);
+
         main();
     }
 
@@ -87,5 +80,15 @@ var Game = (function(global) {
     		});
     	});
     }
+
+    // Load images
+ 	Resources.load([
+        'images/stone-block.png',
+        'images/water-block.png',
+        'images/grass-block.png',
+        'images/enemy-bug.png',
+        'images/char-boy.png'
+    ]);
+    Resources.onReady(init);
 
 })(this);
