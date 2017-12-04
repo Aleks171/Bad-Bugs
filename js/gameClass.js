@@ -1,9 +1,11 @@
 var Game = (function(global) {
+	console.log(global);
 	var doc = global.document,
 		win = global.window,
 		Resources = global.Resources,
 		Row = global.App.Row,
 		Score = global.App.Score,
+		Board = global.App.Board,
 		canvas = doc.createElement('canvas'),
 		ctx = canvas.getContext('2d'),
 		rowImages = [
@@ -32,6 +34,8 @@ var Game = (function(global) {
         'images/char-boy.png'
     ]);
     Resources.onReady(init);
+
+    console.log('Score: ', Score);
 
     function init() {
 		Resources.
