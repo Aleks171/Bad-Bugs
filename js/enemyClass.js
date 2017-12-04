@@ -1,7 +1,8 @@
 (function(global) {
 	var app = global.App || {};
-	var Enemy = function(positionY, speed) {
+	var Enemy = function(positionY, speed, ctx) {
 	    var bugWidth = 110;
+	    this.ctx = ctx;
 	    this.sprite = 'images/enemy-bug.png';
 	    this.location = {
 	        x: -bugWidth,
@@ -25,7 +26,7 @@
 	    }
 	}
 	Enemy.prototype.render = function() {
-	    ctx.drawImage(Resources.get(this.sprite), this.location.x, this.location.y);
+	   this.ctx.drawImage(Resources.get(this.sprite), this.location.x, this.location.y);
 	}
 	app.Enemy = Enemy;
     global.App = app;

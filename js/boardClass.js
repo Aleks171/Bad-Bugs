@@ -1,6 +1,6 @@
 (function(global) {
 	var app = global.App || {};
-	var Board = function(player, Row) {
+	var Board = function(player, Enemy, Row, ctx) {
 		var rowImages = [
 	        'images/water-block.png',   // Top row is water
 	        'images/stone-block.png',   // Row 1 of 4 of stone
@@ -12,6 +12,7 @@
 	    	],
 	    	rowsLength = rowImages.length;
 
+    	this.ctx = ctx;
 	    this.imageWidth = 101;
 	    this.imageHeight = 83;
 	    this.numColumns = 5;
@@ -27,7 +28,7 @@
 			});
 		};
 		this.addRow = function(rowNum, rowType, rowImage) {
-			this.rows.push(new Row(rowNum, this.imageHeight, this.imageWidth, this.numColumns, rowType, rowImage, this.player));
+			this.rows.push(new Row(rowNum, this.imageHeight, this.imageWidth, this.numColumns, rowType, rowImage, this.player, Enemy, this.ctx));
 		}
 		this.instantiateRows = function() {
 	    	for (var rowNum = 0, row; rowNum < rowsLength; rowNum += 1) {

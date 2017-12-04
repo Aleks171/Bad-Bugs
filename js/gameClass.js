@@ -28,19 +28,17 @@ var Game = (function(global) {
         player,
         board;
 
-    console.log('Score: ', Score);
-
     function init() {
     	// Canvas dimensions
     	canvas.width = 505;
     	canvas.height = 664;
     	doc.body.appendChild(canvas);
     	score = new Score(0, 30, ctx);
-        player = new Player(numCols * imageWidth, (numRows-1) * imageHeight, imageWidth, imageHeight);
-        board = new Board(player, Row);
+        player = new Player(numCols * imageWidth, (numRows-1) * imageHeight, imageWidth, imageHeight, ctx);
+        player.init();
+        board = new Board(player, Enemy, Row, ctx);
         board.instantiateRows();
         console.log('Board: ', board);
-
         main();
     }
 
@@ -54,19 +52,35 @@ var Game = (function(global) {
     	updateEnemiesPosition();
     }
 
-    // Render rows, enemies, score etc.
+    // Render player, rows, enemies, score etc.
     function render() {
+    	ctx.clearRect(0,0,canvas.width,canvas.height);
+
     	var rows = board.getRows();
     	rows.forEach(function(row) {
     		// Render row
     		var enemies;
     		row.render();
+    		if (row.getType() === 'stone-block') {
+    			row.generateEnemy();
+    			if (row.isEnemyOutOfRow()) {
+                    row.removeEnemy();
+                }
+    		} else {
+    			if (row.getType() === 'water-block') {
+                    if (row.isPlayerOnRow()) {
+                        score.update();
+                        player.resetLocation();
+                    }
+                }
+    		}
     		enemies = row.getEnemies();
-    		// Render enemy
+    		// Render enemies
     		enemies.forEach(function(enemy) {
     			enemy.render();
     		});
     	});
+    	player.render();
     	score.render();
     }
 

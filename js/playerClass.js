@@ -1,7 +1,8 @@
 (function(global) {
     var app = global.App || {};
-    var Player = function(limitX, limitY, moveStepX, moveStepY) {
+    var Player = function(limitX, limitY, moveStepX, moveStepY, ctx) {
         var that = this;
+        this.ctx = ctx;
         this.sprite = 'images/char-boy.png';
         this.playerWidth = 101;
         this.limitX = limitX;
@@ -70,7 +71,7 @@
             });
         };
         this.render = function() {
-            ctx.drawImage(Resources.get(this.sprite), this.location.x, this.location.y);
+            this.ctx.drawImage(Resources.get(this.sprite), this.location.x, this.location.y);
         };
     };
     app.Player = Player;
