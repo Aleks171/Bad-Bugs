@@ -8,7 +8,7 @@ var Score = function(posX, posY, ctx) {
         ctx.fillText("Score: " + this.score, this.posX, this.posY);
 
 	}
-	this.init = function() {
+	this.render = function() {
 		ctx.font = "30px Arial";
         ctx.fillText("Score: " + this.score, this.posX, this.posY);
 	}

@@ -16,11 +16,14 @@ var Board = function(player, Row) {
 	this.rowWidth = this.imageWidth * this.numColumns;
 	this.player = player;
 	this.rows = [];
+	this.getRows = function() {
+		return this.rows;
+	};
 	this.renderRows = function() {
 		this.rows.forEach(function(row) {
 			row.render();
 		});
-	}
+	};
 	function addRow(rowType, rowImage) {
 		this.rows.push(new Row(x, this.imageHeight, this.imageWidth, this.numColumns, rowType, rowImage, this.player));
 	}

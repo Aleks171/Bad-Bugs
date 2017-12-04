@@ -17,6 +17,9 @@ var Row = function (rowNum, rowHeight, rowBlockWidth, columns, type, image, play
    		}
 	})();
 	this.enemies = [];
+	this.getEnemies = function() {
+		return this.enemies;
+	};
 	this.getType = function() {
 		return type;
 	};
