@@ -30,8 +30,29 @@
 		this.addRow = function(rowNum, rowType, rowImage) {
 			this.rows.push(new Row(rowNum, this.imageHeight, this.imageWidth, this.numColumns, rowType, rowImage, this.player, Enemy, this.ctx));
 		};
-		this.getRandomRowIndex = function() {
-			return Row.randomNumber(0, this.rows.length);
+		this.getRow = function(index) {
+			return this.rows[index];
+		};
+		this.getIndexesOfRowsWithEnemies = function() {
+			var rowsWithEnemies = [];
+			this.rows.forEach(function(row, index) {
+				if (row.getType() === 'stone-block') {
+					rowsWithEnemies.push(index);
+				}
+			});
+			return rowsWithEnemies;
+		};
+		this.getRandomRowWithEnemiesIndex = function() {
+			var rowsWithEnemies = this.getIndexesOfRowsWithEnemies(),
+				randomIndex = Row.randomNumber(0, rowsWithEnemies.length - 1);
+			return rowsWithEnemies[randomIndex];
+		};
+		this.getRandomCoordinateOnBoard = function() {
+			var getY = this.getRandomRowWithEnemiesIndex(),
+				row = this.getRow(getY),
+				rowYposition = row.getRowYposition(),
+				rowXposition = row.getRandomColumnPosition();
+			return {rowYposition: rowYposition, rowXposition: rowXposition};
 		};
 		this.instantiateRows = function() {
 	    	for (var rowNum = 0, row; rowNum < rowsLength; rowNum += 1) {

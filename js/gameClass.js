@@ -27,7 +27,8 @@ var Game = (function(global) {
         imageHeight = 83,
         score,
         player,
-        board;
+        board,
+        star;
 
     function init() {
     	// Canvas dimensions
@@ -39,7 +40,7 @@ var Game = (function(global) {
         player.init();
         board = new Board(player, Enemy, Row, ctx);
         board.instantiateRows();
-        console.log('Board: ', board);
+        createStar();
         main();
     }
 
@@ -83,7 +84,7 @@ var Game = (function(global) {
     	});
     	player.render();
     	score.render();
-    	createStar();
+        star.render();
     }
 
     function updateEnemiesPosition() {
@@ -98,8 +99,10 @@ var Game = (function(global) {
     }
 
     function createStar() {
-    	var star = new Star(202, 60, ctx);
-    	star.render();
+    	var starCoordinates = board.getRandomCoordinateOnBoard();
+    	console.log('Star coordinate: ', starCoordinates);
+		star = new Star(starCoordinates.rowXposition, starCoordinates.rowYposition, ctx);
+		console.log('Star: ', star);
     }
 
     // Load images

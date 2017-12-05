@@ -25,8 +25,10 @@
 		this.getEnemies = function() {
 			return this.enemies;
 		};
-		this.getRandomColumn = function() {
-			return Row.randomNumber(0, this.columns);
+		this.getRandomColumnPosition = function() {
+			var column = Row.randomNumber(0, this.columns - 1);
+			console.log(column);
+			return column * this.rowBlockWidth;
 		};
 		this.getType = function() {
 			return type;
