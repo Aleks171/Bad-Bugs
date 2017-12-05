@@ -8,6 +8,7 @@ var Game = (function(global) {
 		Board = global.App.Board,
 		Player = global.App.Player,
 		Enemy = global.App.Enemy,
+		Star = global.App.Star,
 		canvas = doc.createElement('canvas'),
 		ctx = canvas.getContext('2d'),
 		rowImages = [
