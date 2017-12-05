@@ -44,14 +44,14 @@
 			}
 			return false;
 		};
-		this.speedOfEnemies = Row.randomNumber();
-		this.distanceBetweenEnemiesMultiplicator = Row.randomNumber();
+		this.speedOfEnemies = Row.randomNumber(1, 2);
+		this.distanceBetweenEnemiesMultiplicator = Row.randomNumber(1, 2);
 		this.generateEnemy = function() {
 			var enemy = this.enemies[this.enemies.length-1];
 			if (enemy) {
 				if ((this.rowStartPosition + enemy.location.x) > enemy.getBugWidth() * this.distanceBetweenEnemiesMultiplicator) {
 					this.addEnemy(new Enemy(this.enemyPositionInRow, this.speedOfEnemies, this.ctx));
-					this.distanceBetweenEnemiesMultiplicator = Row.randomNumber();
+					this.distanceBetweenEnemiesMultiplicator = Row.randomNumber(1, 2);
 				}
 			} else {
 				this.addEnemy(new Enemy(this.enemyPositionInRow, this.speedOfEnemies, this.ctx));
@@ -76,8 +76,9 @@
 		}
 	}
 
-	Row.randomNumber = function() {
-		return Math.round(Math.random() + 1);
+	Row.randomNumber = function(min, max) {
+		//return Math.round(Math.random() + 1);
+		return Math.round(((max - min) * Math.random()) + min);
 	};
 
 	app.Row = Row;
