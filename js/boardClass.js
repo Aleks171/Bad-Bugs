@@ -29,7 +29,10 @@
 		};
 		this.addRow = function(rowNum, rowType, rowImage) {
 			this.rows.push(new Row(rowNum, this.imageHeight, this.imageWidth, this.numColumns, rowType, rowImage, this.player, Enemy, this.ctx));
-		}
+		};
+		this.getRandomRowIndex = function() {
+			return Row.randomNumber(0, this.rows.length);
+		};
 		this.instantiateRows = function() {
 	    	for (var rowNum = 0, row; rowNum < rowsLength; rowNum += 1) {
 	    		row = rowImages[rowNum];
