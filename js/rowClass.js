@@ -10,6 +10,7 @@
 		this.rowHeight = rowHeight;
 		this.rowStartPosition = 0;
 		this.columns = columns;
+		this.rowYposition = this.rowNum * this.rowHeight;
 		this.enemyPositionInRow = (function(){
 			if (that.rowNum === 0) {
 				return -that.rowHeight/2;
@@ -24,12 +25,18 @@
 		this.getEnemies = function() {
 			return this.enemies;
 		};
+		this.getRandomColumn = function() {
+			return Row.randomNumber(0, this.columns);
+		};
 		this.getType = function() {
 			return type;
 		};
 		this.getImage = function() {
 			return image;
-		}
+		};
+		this.getRowYposition = function() {
+			return this.rowYposition;
+		};
 		this.removeEnemy = function() {
 			this.enemies.shift();
 		};
@@ -66,7 +73,7 @@
 			} else {
 				return false;
 			}
-		}
+		};
 	};
 
 	Row.prototype.render = function() {
