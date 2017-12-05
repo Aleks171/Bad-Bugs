@@ -83,6 +83,7 @@ var Game = (function(global) {
     	});
     	player.render();
     	score.render();
+    	createStar();
     }
 
     function updateEnemiesPosition() {
@@ -96,13 +97,19 @@ var Game = (function(global) {
     	});
     }
 
+    function createStar() {
+    	var star = new Star(202, 60, ctx);
+    	star.render();
+    }
+
     // Load images
  	Resources.load([
         'images/stone-block.png',
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Star.png'
     ]);
     Resources.onReady(init);
 
