@@ -38,9 +38,9 @@ var Game = (function(global) {
     	score = new Score(0, 30, ctx);
         player = new Player(numCols * imageWidth, (numRows-1) * imageHeight, imageWidth, imageHeight, ctx);
         player.init();
-        board = new Board(player, Enemy, Row, ctx);
+        board = new Board(player, Enemy, Row, Star, ctx);
         board.instantiateRows();
-        createStar();
+        board.instantiateStar();
         main();
     }
 
@@ -84,7 +84,7 @@ var Game = (function(global) {
     	});
     	player.render();
     	score.render();
-        star.render();
+        board.star.render();
     }
 
     function updateEnemiesPosition() {
@@ -96,13 +96,6 @@ var Game = (function(global) {
     			enemy.update();
     		});
     	});
-    }
-
-    function createStar() {
-    	var starCoordinates = board.getRandomCoordinateOnBoard();
-    	console.log('Star coordinate: ', starCoordinates);
-		star = new Star(starCoordinates.rowXposition, starCoordinates.rowYposition, ctx);
-		console.log('Star: ', star);
     }
 
     // Load images

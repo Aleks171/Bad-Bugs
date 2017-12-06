@@ -1,6 +1,7 @@
 (function(global) {
 	var app = global.App || {};
-	var Board = function(player, Enemy, Row, ctx) {
+	var Board = function(player, Enemy, Row, Star, ctx) {
+		var that = this;
 		var rowImages = [
 	        'images/water-block.png',   // Top row is water
 	        'images/stone-block.png',   // Row 1 of 4 of stone
@@ -13,6 +14,7 @@
 	    	rowsLength = rowImages.length;
 
     	this.ctx = ctx;
+    	
 	    this.imageWidth = 101;
 	    this.imageHeight = 83;
 	    this.numColumns = 5;
@@ -54,6 +56,7 @@
 				rowXposition = row.getRandomColumnPosition();
 			return {rowYposition: rowYposition, rowXposition: rowXposition};
 		};
+		this.star;
 		this.instantiateRows = function() {
 	    	for (var rowNum = 0, row; rowNum < rowsLength; rowNum += 1) {
 	    		row = rowImages[rowNum];
@@ -67,6 +70,10 @@
 		        	this.addRow(rowNum, 'grass-block', 'images/grass-block.png');
 		        }
 	    	}
+	    };
+	    this.instantiateStar = function() {
+	    	var coordinates = this.getRandomCoordinateOnBoard();
+    		this.star = new Star(coordinates.rowXposition, coordinates.rowYposition, this.ctx);
 	    };
 	};
 	app.Board = Board;
