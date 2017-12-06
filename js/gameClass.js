@@ -27,8 +27,7 @@ var Game = (function(global) {
         imageHeight = 83,
         score,
         player,
-        board,
-        star;
+        board;
 
     function init() {
     	// Canvas dimensions
@@ -38,7 +37,7 @@ var Game = (function(global) {
     	score = new Score(0, 30, ctx);
         player = new Player(numCols * imageWidth, (numRows-1) * imageHeight, imageWidth, imageHeight, ctx);
         player.init();
-        board = new Board(player, Enemy, Row, Star, ctx);
+        board = new Board(player, score, Enemy, Row, Star, ctx);
         board.instantiateRows();
         board.instantiateStar();
         main();
@@ -52,6 +51,7 @@ var Game = (function(global) {
 
     function update() {
     	updateEnemiesPosition();
+    	board.updateScoreWhenPlayerGotStar(player, score);
     }
 
     // Render player, rows, enemies, score etc.
@@ -84,7 +84,9 @@ var Game = (function(global) {
     	});
     	player.render();
     	score.render();
-        board.star.render();
+    	if (board.star) {
+    		board.star.render();
+    	}
     }
 
     function updateEnemiesPosition() {

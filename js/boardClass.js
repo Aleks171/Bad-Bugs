@@ -1,6 +1,6 @@
 (function(global) {
 	var app = global.App || {};
-	var Board = function(player, Enemy, Row, Star, ctx) {
+	var Board = function(player, score, Enemy, Row, Star, ctx) {
 		var that = this;
 		var rowImages = [
 	        'images/water-block.png',   // Top row is water
@@ -14,7 +14,7 @@
 	    	rowsLength = rowImages.length;
 
     	this.ctx = ctx;
-    	
+		this.star;
 	    this.imageWidth = 101;
 	    this.imageHeight = 83;
 	    this.numColumns = 5;
@@ -56,7 +56,6 @@
 				rowXposition = row.getRandomColumnPosition();
 			return {rowYposition: rowYposition, rowXposition: rowXposition};
 		};
-		this.star;
 		this.instantiateRows = function() {
 	    	for (var rowNum = 0, row; rowNum < rowsLength; rowNum += 1) {
 	    		row = rowImages[rowNum];
@@ -73,7 +72,18 @@
 	    };
 	    this.instantiateStar = function() {
 	    	var coordinates = this.getRandomCoordinateOnBoard();
-    		this.star = new Star(coordinates.rowXposition, coordinates.rowYposition, this.ctx);
+    		this.star = new Star(coordinates.rowXposition, coordinates.rowYposition, player, this.ctx);
+	    };
+	    this.removeStar = function() {
+	    	this.star = null;
+	    };
+	    this.updateScoreWhenPlayerGotStar = function(playerOther, score) {
+	    	if (this.star) {
+		    	if (this.star.isPlayerOnStar(playerOther)) {
+		    		score.update(100);
+		    		this.removeStar();
+		    	}
+	    	}
 	    };
 	};
 	app.Board = Board;
