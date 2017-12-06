@@ -8,11 +8,11 @@
 		this.update = function(points) {
 			this.score += points;
 	        ctx.fillText("Score: " + this.score, this.posX, this.posY);
-		}
+		};
 		this.render = function() {
 			ctx.font = "30px Arial";
 	        ctx.fillText("Score: " + this.score, this.posX, this.posY);
-		}
+		};
 	}
 	app.Score = Score;
 	global.App = app;

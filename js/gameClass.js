@@ -9,6 +9,7 @@ var Game = (function(global) {
 		Player = global.App.Player,
 		Enemy = global.App.Enemy,
 		Star = global.App.Star,
+		Life = global.App.Life,
 		canvas = doc.createElement('canvas'),
 		ctx = canvas.getContext('2d'),
 		rowImages = [
@@ -32,14 +33,16 @@ var Game = (function(global) {
     function init() {
     	// Canvas dimensions
     	canvas.width = 505;
-    	canvas.height = 664;
+    	canvas.height = 747;
     	doc.body.appendChild(canvas);
     	score = new Score(0, 30, ctx);
-        player = new Player(numCols * imageWidth, (numRows-1) * imageHeight, imageWidth, imageHeight, ctx);
+        player = new Player(numCols * imageWidth, (numRows-1) * imageHeight, imageWidth, imageHeight, Life, ctx);
         player.init();
+        console.log('Player: ', player);
         board = new Board(player, score, Enemy, Row, Star, ctx);
         board.instantiateRows();
         board.instantiateStar();
+
         main();
     }
 
@@ -83,6 +86,7 @@ var Game = (function(global) {
     		});
     	});
     	player.render();
+    	player.renderLives();
     	score.render();
     	if (board.star) {
     		board.star.render();
@@ -107,7 +111,8 @@ var Game = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
-        'images/Star.png'
+        'images/Star.png',
+        'images/Heart.png'
     ]);
     Resources.onReady(init);
 
