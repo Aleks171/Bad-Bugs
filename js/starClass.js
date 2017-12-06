@@ -4,7 +4,7 @@
 		this.sprite = 'images/Star.png';
 		this.location = {
 			x: x,
-			y: y - 10
+			y: y - 30
 		};
 		this.ctx = ctx;
 	};

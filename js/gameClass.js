@@ -71,7 +71,7 @@ var Game = (function(global) {
     		} else {
     			if (row.getType() === 'water-block') {
                     if (row.isPlayerOnRow()) {
-                        score.update();
+                        score.update(50);
                         player.resetLocation();
                     }
                 }

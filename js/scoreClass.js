@@ -5,8 +5,8 @@
 		this.posY = posY;
 		this.ctx = ctx;
 		this.score = 0;
-		this.update = function() {
-			this.score += 50;
+		this.update = function(points) {
+			this.score += points;
 	        ctx.fillText("Score: " + this.score, this.posX, this.posY);
 		}
 		this.render = function() {
