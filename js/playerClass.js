@@ -67,6 +67,9 @@
                 startPositionX += lifeWidth;
             }
         };
+        this.removeLife = function() {
+            this.lives.pop();
+        };
         this.init = function() {
             // Key press listener for the player
             document.addEventListener('keyup', function(e) {

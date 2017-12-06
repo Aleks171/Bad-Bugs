@@ -42,7 +42,7 @@ var Game = (function(global) {
         board = new Board(player, score, Enemy, Row, Star, ctx);
         board.instantiateRows();
         board.instantiateStar();
-
+        console.log('Board: ', board);
         main();
     }
 
@@ -54,6 +54,7 @@ var Game = (function(global) {
 
     function update() {
     	updateEnemiesPosition();
+    	checkCollision();
     	board.updateScoreWhenPlayerGotStar(player, score);
     }
 
@@ -104,6 +105,19 @@ var Game = (function(global) {
     	});
     }
 
+    function checkCollision() {
+    	var rows = board.getRows();
+    	rows.forEach(function(row) {
+    		var enemies = row.getEnemies();
+    		enemies.forEach(function(enemy) {
+    			if (enemy.checkCollision(player)) {
+    				player.removeLife();
+    				player.resetLocation();
+    			}
+    		});
+    	});
+    }
+
     // Load images
  	Resources.load([
         'images/stone-block.png',
@@ -115,5 +129,4 @@ var Game = (function(global) {
         'images/Heart.png'
     ]);
     Resources.onReady(init);
-
 })(this);

@@ -1,7 +1,7 @@
 (function(global) {
 	var app = global.App || {};
 	var Enemy = function(positionY, speed, ctx) {
-	    var bugWidth = 110;
+	    var bugWidth = 101;
 	    this.ctx = ctx;
 	    this.sprite = 'images/enemy-bug.png';
 	    this.location = {
@@ -17,11 +17,16 @@
     	this.location.x += this.speed;
 	}
 	Enemy.prototype.checkCollision = function(player) {
-	    if ((player.location.x >= (this.location.x - this.getBugWidth()/2)) && 
-	        (player.location.x <= (this.location.x + this.getBugWidth()/2)) &&
+	    /*if ((player.location.x >= (this.location.x - this.getBugWidth())) && 
+	        (player.location.x <= (this.location.x + this.getBugWidth()/1.4)) &&
 	        player.location.y === this.location.y) {
-	        return true;
-	    } else {
+	        return true;*/
+        if (((player.location.x + player.playerWidth) >= this.location.x) && 
+        	// 0.7 multiplier is needed for proper collision detection due to the margins between the pictures of the enemies
+        	(player.location.x <= this.location.x + this.getBugWidth()*0.7) && (player.location.y === this.location.y)) {
+        	return true;
+        }
+	     else {
 	        return false;
 	    }
 	}
