@@ -53,6 +53,9 @@ var Game = (function(global) {
     }
 
     function update() {
+    	if (player.isOutOfLives()) {
+    		return;
+    	}
     	updateEnemiesPosition();
     	checkCollision();
     	board.updateScoreWhenPlayerGotStar(player, score);

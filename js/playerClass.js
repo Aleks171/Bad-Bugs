@@ -93,6 +93,13 @@
                 life.render();
             });
         };
+        this.isOutOfLives = function() {
+            if (this.lives.length === 0) {
+                return true;
+            } else {
+                return false;
+            }
+        };
     };
     app.Player = Player;
     global.App = app;
