@@ -32,25 +32,25 @@ var Game = (function(global) {
         numCols = 5,
         imageWidth = 101,
         imageHeight = 83,
-        score,
-        player,
-        board;
-        console.log(view);
+        score = new Score(0, 30, ctx),
+        player = new Player(numCols * imageWidth, (numRows-1) * imageHeight, imageWidth, imageHeight, Life, ctx),
+        board = new Board(player, score, Enemy, Row, Star, ctx);
+        
 
     function init() {
     	// Canvas dimensions
     	canvas.width = 505;
     	canvas.height = 747;
     	doc.body.appendChild(canvas);
-    	score = new Score(0, 30, ctx);
-        player = new Player(numCols * imageWidth, (numRows-1) * imageHeight, imageWidth, imageHeight, Life, ctx);
+    	//score = new Score(0, 30, ctx);
+        //player = new Player(numCols * imageWidth, (numRows-1) * imageHeight, imageWidth, imageHeight, Life, ctx);
         player.init();
         console.log('Player: ', player);
-        board = new Board(player, score, Enemy, Row, Star, ctx);
+        //board = new Board(player, score, Enemy, Row, Star, ctx);
         board.instantiateRows();
         board.instantiateStar();
         console.log('Board: ', board);
-        view.modal.createChooseHeroesModal(heroesImages).onConfirm(function(){main()});
+        view.modal.createChooseHeroesModal(heroesImages).onConfirm(function(){main()})
         //main();
     }
 

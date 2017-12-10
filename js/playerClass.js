@@ -83,10 +83,11 @@
                 that.handleInput(allowedKeys[e.keyCode]);
             });
             this.addLives();
-            this.renderLives();
         };
         this.render = function() {
             this.ctx.drawImage(Resources.get(this.sprite), this.location.x, this.location.y);
+            this.renderLives();
+
         };
         this.renderLives = function() {
             this.lives.forEach(function(life) {
