@@ -10,6 +10,7 @@ var Game = (function(global) {
 		Enemy = global.App.Enemy,
 		Star = global.App.Star,
 		Life = global.App.Life,
+		view = global.App.view,
 		canvas = doc.createElement('canvas'),
 		ctx = canvas.getContext('2d'),
 		rowImages = [
@@ -21,6 +22,11 @@ var Game = (function(global) {
             'images/grass-block.png',   // Row 5 of 2 of grass
             'images/grass-block.png'
         ],
+        heroesImages = ["images/char-boy.png",
+            "images/char-cat-girl.png",
+            "images/char-horn-girl.png",
+            "images/char-pink-girl.png",
+            "images/char-princess-girl.png"],
         // Rows info
         numRows = rowImages.length,
         numCols = 5,
@@ -29,6 +35,7 @@ var Game = (function(global) {
         score,
         player,
         board;
+        console.log(view);
 
     function init() {
     	// Canvas dimensions
@@ -43,6 +50,7 @@ var Game = (function(global) {
         board.instantiateRows();
         board.instantiateStar();
         console.log('Board: ', board);
+        view.modal.createChooseHeroesModal(heroesImages);
         main();
     }
 
