@@ -70,7 +70,7 @@
 		        }
 	    	}
 	    };
-	    this.instantiateStar = function() {
+	    this.createStar = function() {
 	    	var coordinates = this.getRandomCoordinateOnBoard();
     		this.star = new Star(coordinates.rowXposition, coordinates.rowYposition, player, this.ctx);
 	    };

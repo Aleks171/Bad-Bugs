@@ -48,9 +48,16 @@ var Game = (function(global) {
         console.log('Player: ', player);
         //board = new Board(player, score, Enemy, Row, Star, ctx);
         board.instantiateRows();
-        board.instantiateStar();
+        board.createStar();
         console.log('Board: ', board);
-        view.modal.createChooseHeroesModal(heroesImages).onConfirm(function(){main()})
+        var modal = view.modal.createChooseHeroesModal(heroesImages);
+        modal.onConfirm(function(){
+        	var imageSrc = modal.getChosenImageSrc();
+        	console.log(imageSrc);
+        	player.setSprite(imageSrc);
+        	console.log(player);
+        	main();
+        });
         //main();
     }
 
@@ -88,6 +95,7 @@ var Game = (function(global) {
                     if (row.isPlayerOnRow()) {
                         score.update(50);
                         player.resetLocation();
+                        board.createStar();
                     }
                 }
     		}
@@ -136,6 +144,10 @@ var Game = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png',
         'images/Star.png',
         'images/Heart.png'
     ]);

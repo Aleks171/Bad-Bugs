@@ -3,7 +3,7 @@
     var Player = function(limitX, limitY, moveStepX, moveStepY, Life, ctx) {
         var that = this;
         this.ctx = ctx;
-        this.sprite = 'images/char-boy.png';
+        this.sprite;
         this.playerWidth = 101;
         this.limitX = limitX;
         this.limitY = limitY;
@@ -46,6 +46,9 @@
                         break;
                     }
             }
+        };
+        this.setSprite = function(src) {
+            this.sprite = src;
         };
         this.getLocationX = function() {
             return this.location.x;

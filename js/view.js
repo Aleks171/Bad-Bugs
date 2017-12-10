@@ -123,7 +123,7 @@
             }
 
             function getChosenImageSrc() {
-                return clickedImage.src;
+                return clickedImage.getAttribute('src');
             }
 
             var modal = createModal(),
