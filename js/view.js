@@ -42,6 +42,7 @@
                 buttons = document.createElement('div');
             button1.classList.add('btn', 'success');
             button1.innerHTML = 'OK';
+            button1.addEventListener('click', function(e) {e.preventDefault(); closeModal(modal)});
             button2.classList.add('btn', 'danger');
             button2.innerHTML = 'NO';
             button2.addEventListener('click', function(e) {e.preventDefault(); closeModal(modal)});

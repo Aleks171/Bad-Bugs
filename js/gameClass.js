@@ -50,8 +50,8 @@ var Game = (function(global) {
         board.instantiateRows();
         board.instantiateStar();
         console.log('Board: ', board);
-        view.modal.createChooseHeroesModal(heroesImages);
-        main();
+        view.modal.createChooseHeroesModal(heroesImages).onConfirm(function(){main()});
+        //main();
     }
 
     function main() {
