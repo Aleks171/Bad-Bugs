@@ -22,7 +22,8 @@ var Game = (function(global) {
             'images/grass-block.png',   // Row 5 of 2 of grass
             'images/grass-block.png'
         ],
-        heroesImages = ["images/char-boy.png",
+        heroesImages = [
+        	"images/char-boy.png",
             "images/char-cat-girl.png",
             "images/char-horn-girl.png",
             "images/char-pink-girl.png",
@@ -35,7 +36,12 @@ var Game = (function(global) {
         score = new Score(0, 30, ctx),
         player = new Player(numCols * imageWidth, (numRows-1) * imageHeight, imageWidth, imageHeight, Life, ctx),
         board = new Board(player, score, Enemy, Row, Star, ctx);
-        
+        var animationID,
+        gameShouldContinue = true;
+
+    function newGames(argument) {
+    	// body...
+    }
 
     function init() {
     	// Canvas dimensions
@@ -53,9 +59,7 @@ var Game = (function(global) {
         var modal = view.modal.createChooseHeroesModal(heroesImages);
         modal.onConfirm(function(){
         	var imageSrc = modal.getChosenImageSrc();
-        	console.log(imageSrc);
         	player.setSprite(imageSrc);
-        	console.log(player);
         	main();
         });
         //main();
@@ -63,13 +67,21 @@ var Game = (function(global) {
 
     function main() {
     	update();
-    	render();
-    	win.requestAnimationFrame(main);
+    	if (gameShouldContinue) {
+    		render();
+	    	animationID = win.requestAnimationFrame(main);
+    	} else {
+    		view.modal.createResultGameModal().onConfirm(function() {init();});
+    	}
     }
 
     function update() {
     	if (player.isOutOfLives()) {
-    		return;
+
+    		//stop game fn here
+    		gameShouldContinue = false;
+    		win.cancelAnimationFrame(animationID);
+    		clear();
     	}
     	updateEnemiesPosition();
     	checkCollision();
@@ -78,8 +90,7 @@ var Game = (function(global) {
 
     // Render player, rows, enemies, score etc.
     function render() {
-    	ctx.clearRect(0,0,canvas.width,canvas.height);
-
+		clear();
     	var rows = board.getRows();
     	rows.forEach(function(row) {
     		// Render row
@@ -111,6 +122,10 @@ var Game = (function(global) {
     	if (board.star) {
     		board.star.render();
     	}
+    }
+
+    function clear() {
+    	ctx.clearRect(0,0,canvas.width,canvas.height);
     }
 
     function updateEnemiesPosition() {
