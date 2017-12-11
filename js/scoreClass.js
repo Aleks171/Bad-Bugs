@@ -13,6 +13,12 @@
 			ctx.font = "30px Arial";
 	        ctx.fillText("Score: " + this.score, this.posX, this.posY);
 		};
+		this.getScore = function() {
+			return this.score;
+		};
+		this.clearScore = function(argument) {
+			this.score = 0;
+		};
 	}
 	app.Score = Score;
 	global.App = app;
