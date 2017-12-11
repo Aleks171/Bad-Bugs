@@ -79,8 +79,7 @@
 	};
 
 	Row.prototype.render = function() {
-		for (var i = 0, column; i < this.columns; i +=1) {
-			column = i;
+		for (var column = 0; column < this.columns; column +=1) {
 			this.ctx.drawImage(Resources.get(this.getImage()), column * this.rowBlockWidth, this.rowNum * this.rowHeight);
 		}
 	}

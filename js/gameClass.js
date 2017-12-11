@@ -39,8 +39,8 @@ var Game = (function(global) {
         var animationID,
         gameShouldContinue = true;
 
-    function newGames(argument) {
-    	// body...
+    function newGame(argument) {
+    	score.clearScore();
     }
 
     function init() {
@@ -83,9 +83,39 @@ var Game = (function(global) {
     		win.cancelAnimationFrame(animationID);
     		clear();
     	}
+    	// generate enemies fn here
+    	generateEnemies();
     	updateEnemiesPosition();
     	checkCollision();
+    	// remove enemies which are out of row fn here
+    	removeOutOfRowEnemies();
     	board.updateScoreWhenPlayerGotStar(player, score);
+    }
+
+    function generateEnemies() {
+    	var rows = board.getRows();
+    	rows.forEach(function(row) {
+    		if (row.getType() === 'stone-block') {
+    			row.generateEnemy();
+    		} else {
+    			if (row.getType() === 'water-block') {
+                    if (row.isPlayerOnRow()) {
+                        score.update(50);
+                        player.resetLocation();
+                        board.createStar();
+                    }
+                }
+    		}
+		});
+    }
+
+    function removeOutOfRowEnemies() {
+    	var rows = board.getRows();
+    	rows.forEach(function(row) {
+    		if (row.isEnemyOutOfRow()) {
+                row.removeEnemy();
+            }
+		});
     }
 
     // Render player, rows, enemies, score etc.
@@ -96,20 +126,6 @@ var Game = (function(global) {
     		// Render row
     		var enemies;
     		row.render();
-    		if (row.getType() === 'stone-block') {
-    			row.generateEnemy();
-    			if (row.isEnemyOutOfRow()) {
-                    row.removeEnemy();
-                }
-    		} else {
-    			if (row.getType() === 'water-block') {
-                    if (row.isPlayerOnRow()) {
-                        score.update(50);
-                        player.resetLocation();
-                        board.createStar();
-                    }
-                }
-    		}
     		enemies = row.getEnemies();
     		// Render enemies
     		enemies.forEach(function(enemy) {
