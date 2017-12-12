@@ -103,6 +103,64 @@
 	    	});
 	    	return onRow;
 	    };
+	    this.update = function() {
+	    	// generate enemies fn
+	    	this.generateEnemies();
+
+	    	// update enemies location fn
+    	 	this.updateEnemies();
+
+	    	// remove enemies that are out of row fn
+	    	this.removeOutOfRowEnemies();
+
+	    	// check collision fn
+	    	//this.checkCollision();
+	    };
+	    this.updateEnemies = function() {
+	    	var rows = this.getRows();
+	    	rows.forEach(function(row) {
+	    		var enemies = row.getEnemies();
+	    		enemies.forEach(function(enemy) {
+	    			enemy.update();
+	    		});
+	    	});
+	    };
+	    this.removeOutOfRowEnemies = function() {
+	    	var rows = this.getRows();
+	    	rows.forEach(function(row) {
+	    		if (row.getType() === 'stone-block') {
+	    			row.removeOutOfRowEnemy();
+	    		}
+	    	})
+	    };
+	    /*this.checkCollision = function() {
+	    	var rows = this.getRows();
+    		rows.forEach(function(row) {
+    			var enemies = row.getEnemies();
+    			enemies.forEach(function(enemy) {
+	    			if (enemy.checkCollision(player)) {
+	    				player.removeLife();
+	    				player.resetLocation();
+	    			}
+    			});
+    		});
+	    };*/
+	    this.isCollisionHappened = function(player) {
+	    	var rows = this.getRows(),
+	    		collision = false;
+    		rows.forEach(function(row) {
+    			var enemies = row.getEnemies();
+    			enemies.forEach(function(enemy) {
+	    			if (enemy.checkCollision(player)) {
+	    				collision = true;
+	    			}
+    			});
+    		});
+    		return collision;
+	    };
+	    this.render = function() {
+	    	// render rows
+	    };
 	};
 	app.Board = Board;
 	global.App = app;

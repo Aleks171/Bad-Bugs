@@ -42,16 +42,20 @@
 		this.removeEnemy = function() {
 			this.enemies.shift();
 		};
-		this.isEnemyOutOfRow = function() {
+		this.isEnemyOutOfRow = function(enemy) {
+			if ((enemy.location.x) > this.rowWidth) {
+				return true;
+			} else {
+				return false;
+			}
+		};
+		this.removeOutOfRowEnemy = function() {
 			var enemy = this.enemies[0];
 			if (enemy) {
-				if ((enemy.location.x) > this.rowWidth) {
-					return true;
-				} else {
-					return false;
+				if (this.isEnemyOutOfRow(enemy)) {
+					this.removeEnemy();
 				}
 			}
-			return false;
 		};
 		this.speedOfEnemies = Row.randomNumber(1, 2);
 		this.distanceBetweenEnemiesMultiplicator = Row.randomNumber(2, 3);

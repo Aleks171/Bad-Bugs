@@ -71,7 +71,7 @@ var Game = (function(global) {
     		render();
 	    	animationID = win.requestAnimationFrame(main);
     	} else {
-    		view.modal.createResultGameModal().onConfirm(function() {init();});
+    		view.modal.createResultGameModal().onConfirm(function() {gameShouldContinue = true;init();});
     	}
     }
 
@@ -82,18 +82,17 @@ var Game = (function(global) {
     		win.cancelAnimationFrame(animationID);
     		clear();
     	}
-    	// generate enemies fn here
-    	generateEnemies();
-    	updateEnemiesPosition();
-    	checkCollision();
-    	// remove enemies which are out of row fn here
-    	removeOutOfRowEnemies();
+    	board.update();
+    	updateOnCollision();
     	updateWhenPlayerOnSpecificRow();
     	board.updateScoreWhenPlayerGotStar(player, score);
     }
 
-    function generateEnemies() {
-		board.generateEnemies();
+    function updateOnCollision() {
+    	if (board.isCollisionHappened(player)) {
+    		player.removeLife();
+			player.resetLocation();
+    	}
     }
 
     function updateWhenPlayerOnSpecificRow() {
@@ -102,15 +101,6 @@ var Game = (function(global) {
             player.resetLocation();
             board.createStar();
     	}
-    }
-
-    function removeOutOfRowEnemies() {
-    	var rows = board.getRows();
-    	rows.forEach(function(row) {
-    		if (row.isEnemyOutOfRow()) {
-                row.removeEnemy();
-            }
-		});
     }
 
     // Render player, rows, enemies, score etc.
@@ -149,20 +139,7 @@ var Game = (function(global) {
     		});
     	});
     }
-
-    function checkCollision() {
-    	var rows = board.getRows();
-    	rows.forEach(function(row) {
-    		var enemies = row.getEnemies();
-    		enemies.forEach(function(enemy) {
-    			if (enemy.checkCollision(player)) {
-    				player.removeLife();
-    				player.resetLocation();
-    			}
-    		});
-    	});
-    }
-
+    
     // Load images
  	Resources.load([
         'images/stone-block.png',
