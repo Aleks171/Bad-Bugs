@@ -69,8 +69,8 @@
 		this.addEnemy = function(enemy) {
 			this.enemies.push(enemy);
 		};
-		this.isPlayerOnRow = function() {
-			if (-this.rowHeight/2 === player.getLocationY()) {
+		this.isPlayerOnRow = function(player) {
+			if (this.getRowYposition() - this.rowHeight/2 === player.getLocationY()) {
 				return true;
 			} else {
 				return false;

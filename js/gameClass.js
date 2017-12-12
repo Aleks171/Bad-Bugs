@@ -77,7 +77,6 @@ var Game = (function(global) {
 
     function update() {
     	if (player.isOutOfLives()) {
-
     		//stop game fn here
     		gameShouldContinue = false;
     		win.cancelAnimationFrame(animationID);
@@ -89,24 +88,20 @@ var Game = (function(global) {
     	checkCollision();
     	// remove enemies which are out of row fn here
     	removeOutOfRowEnemies();
+    	updateWhenPlayerOnSpecificRow();
     	board.updateScoreWhenPlayerGotStar(player, score);
     }
 
     function generateEnemies() {
-    	var rows = board.getRows();
-    	rows.forEach(function(row) {
-    		if (row.getType() === 'stone-block') {
-    			row.generateEnemy();
-    		} else {
-    			if (row.getType() === 'water-block') {
-                    if (row.isPlayerOnRow()) {
-                        score.update(50);
-                        player.resetLocation();
-                        board.createStar();
-                    }
-                }
-    		}
-		});
+		board.generateEnemies();
+    }
+
+    function updateWhenPlayerOnSpecificRow() {
+    	if (board.isPlayerOnCertainRowType(player, 'water-block')) {
+    		score.update(50);
+            player.resetLocation();
+            board.createStar();
+    	}
     }
 
     function removeOutOfRowEnemies() {

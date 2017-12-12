@@ -77,13 +77,31 @@
 	    this.removeStar = function() {
 	    	this.star = null;
 	    };
-	    this.updateScoreWhenPlayerGotStar = function(playerOther, score) {
+	    this.updateScoreWhenPlayerGotStar = function(player, score) {
 	    	if (this.star) {
-		    	if (this.star.isPlayerOnStar(playerOther)) {
+		    	if (this.star.isPlayerOnStar(player)) {
 		    		score.update(100);
 		    		this.removeStar();
 		    	}
 	    	}
+	    };
+	    this.generateEnemies = function() {
+	    	this.rows.forEach(function(row) {
+	    		if (row.getType() === 'stone-block') {
+	    			row.generateEnemy();
+	    		}
+	    	});
+	    };
+	    this.isPlayerOnCertainRowType = function(player, rowType) {
+	    	var onRow = false;
+	    	this.rows.forEach(function(row) {
+	    		if (row.getType() === rowType) {
+	    			if (row.isPlayerOnRow(player)) {
+	    				onRow = true;
+	    			}
+	    		}
+	    	});
+	    	return onRow;
 	    };
 	};
 	app.Board = Board;
