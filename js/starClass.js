@@ -1,6 +1,6 @@
 (function(global) {
 	var app = global.App || {};
-	var Star = function(x, y, player, ctx) {
+	var Star = function(x, y, ctx) {
 		this.sprite = 'images/Star.png';
 		this.location = {
 			x: x,

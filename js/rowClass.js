@@ -1,7 +1,7 @@
 (function(global) {
 	var app = global.App || {};
 
-	var Row = function (rowNum, rowHeight, rowBlockWidth, columns, type, image, player, Enemy, ctx) {
+	var Row = function (rowNum, rowHeight, rowBlockWidth, columns, type, image, Enemy, ctx) {
 		var that = this;
 		this.ctx = ctx;
 		this.rowNum = rowNum;
@@ -27,7 +27,6 @@
 		};
 		this.getRandomColumnPosition = function() {
 			var column = Row.randomNumber(0, this.columns - 1);
-			console.log(column);
 			return column * this.rowBlockWidth;
 		};
 		this.getType = function() {

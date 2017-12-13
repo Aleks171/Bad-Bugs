@@ -13,7 +13,7 @@
             x: (this.limitX - this.playerWidth)/2,
             y: this.limitY - moveStepY/2
         };
-        this.livesQuantity = 3;
+        this.initialLivesQuantity = 3;
         this.lives = [];
         this.handleInput = function(key) {
             switch (key) {
@@ -63,7 +63,7 @@
             };
         };
         this.addLives = function() {
-            for (var i = 0, startPositionX = 354, startPositionY = -15; i < this.livesQuantity; i += 1) {
+            for (var i = 0, startPositionX = 354, startPositionY = -15; i < this.initialLivesQuantity; i += 1) {
                 var life = new Life(startPositionX, startPositionY, ctx),
                     lifeWidth = life.getWidth()/2;
                 this.lives.push(life);

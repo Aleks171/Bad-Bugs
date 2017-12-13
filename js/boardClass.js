@@ -1,6 +1,6 @@
 (function(global) {
 	var app = global.App || {};
-	var Board = function(player, score, Enemy, Row, Star, ctx) {
+	var Board = function(Player, Enemy, Row, Star, Life, ctx) {
 		var that = this;
 		var rowImages = [
 	        'images/water-block.png',   // Top row is water
@@ -11,16 +11,26 @@
 	        'images/grass-block.png',   // Row 5 of 2 of grass
 	        'images/grass-block.png'
 	    	],
-	    	rowsLength = rowImages.length;
+	    	rowsQuantity = rowImages.length;
 
-    	this.ctx = ctx;
-		this.star;
-	    this.imageWidth = 101;
-	    this.imageHeight = 83;
 	    this.numColumns = 5;
-		this.rowWidth = this.imageWidth * this.numColumns;
-		this.player = player;
+    	this.imageWidth = 101;
+	    this.imageHeight = 83;
+    	this.boardHeight = rowsQuantity * this.imageHeight;
+		this.boardWidth = this.imageWidth * this.numColumns;
+    	this.ctx = ctx;
+		this.player = new Player(this.boardWidth, this.boardHeight - this.imageHeight, this.imageWidth, this.imageHeight, Life, ctx);
 		this.rows = [];
+		this.star;
+		this.getWidth = function() {
+			return this.boardWidth;
+		};
+		this.getHeight = function() {
+			return this.boardHeight;
+		};
+		this.getPlayer = function() {
+			return this.player;
+		};
 		this.getRows = function() {
 			return this.rows;
 		};
@@ -30,7 +40,7 @@
 			});
 		};
 		this.addRow = function(rowNum, rowType, rowImage) {
-			this.rows.push(new Row(rowNum, this.imageHeight, this.imageWidth, this.numColumns, rowType, rowImage, this.player, Enemy, this.ctx));
+			this.rows.push(new Row(rowNum, this.imageHeight, this.imageWidth, this.numColumns, rowType, rowImage, Enemy, this.ctx));
 		};
 		this.getRow = function(index) {
 			return this.rows[index];
@@ -57,7 +67,7 @@
 			return {rowYposition: rowYposition, rowXposition: rowXposition};
 		};
 		this.instantiateRows = function() {
-	    	for (var rowNum = 0, row; rowNum < rowsLength; rowNum += 1) {
+	    	for (var rowNum = 0, row; rowNum < rowsQuantity; rowNum += 1) {
 	    		row = rowImages[rowNum];
 		        if (row === 'images/water-block.png') {
 		            this.addRow(rowNum, 'water-block', 'images/water-block.png');
@@ -72,7 +82,7 @@
 	    };
 	    this.createStar = function() {
 	    	var coordinates = this.getRandomCoordinateOnBoard();
-    		this.star = new Star(coordinates.rowXposition, coordinates.rowYposition, player, this.ctx);
+    		this.star = new Star(coordinates.rowXposition, coordinates.rowYposition, this.ctx);
 	    };
 	    this.removeStar = function() {
 	    	this.star = null;
@@ -133,18 +143,6 @@
 	    		}
 	    	})
 	    };
-	    /*this.checkCollision = function() {
-	    	var rows = this.getRows();
-    		rows.forEach(function(row) {
-    			var enemies = row.getEnemies();
-    			enemies.forEach(function(enemy) {
-	    			if (enemy.checkCollision(player)) {
-	    				player.removeLife();
-	    				player.resetLocation();
-	    			}
-    			});
-    		});
-	    };*/
 	    this.isCollisionHappened = function(player) {
 	    	var rows = this.getRows(),
 	    		collision = false;
@@ -159,8 +157,15 @@
     		return collision;
 	    };
 	    this.render = function() {
+	    	// render player
+	    	this.getPlayer().render();
 	    	// render rows
 	    };
+	    var initialization = (function(that) {
+	    	that.getPlayer().init();
+	    	that.instantiateRows();
+	    	that.createStar();
+	    })(this);
 	};
 	app.Board = Board;
 	global.App = app;
