@@ -26,8 +26,19 @@ var Game = (function(global) {
         var animationID,
         gameShouldContinue = true;
 
-    function newGame(argument) {
+    function newGame() {
     	score.clearScore();
+    	board.instantiateRows();
+    	player.resetLocation();
+		player.restoreLives();
+    	board.createStar();
+    	console.log(board);
+    	var modal = view.modal.createChooseHeroesModal(heroesImages);
+        modal.onConfirm(function(){
+        	var imageSrc = modal.getChosenImageSrc();
+        	player.setSprite(imageSrc);
+        	main();
+        });
     }
 
     function init() {
@@ -35,36 +46,40 @@ var Game = (function(global) {
     	canvas.width = board.getWidth();
     	canvas.height = 747;
     	doc.body.appendChild(canvas);
-        var modal = view.modal.createChooseHeroesModal(heroesImages);
+    	newGame();
+        /*var modal = view.modal.createChooseHeroesModal(heroesImages);
         modal.onConfirm(function(){
         	var imageSrc = modal.getChosenImageSrc();
         	player.setSprite(imageSrc);
         	main();
-        });
+        });*/
         //main();
     }
 
     function main() {
-    	update();
-    	if (gameShouldContinue) {
+    	if (!player.isOutOfLives()) {
+    		update();
     		render();
 	    	animationID = win.requestAnimationFrame(main);
     	} else {
-    		view.modal.createResultGameModal().onConfirm(function() {gameShouldContinue = true;init();});
+    		clear()
+    		win.cancelAnimationFrame(animationID);
+    		view.modal.createResultGameModal().onConfirm(function() {gameShouldContinue = true;newGame();});
     	}
     }
 
     function update() {
-    	if (player.isOutOfLives()) {
+    	/*if (player.isOutOfLives()) {
     		//stop game fn here
-    		gameShouldContinue = false;
-    		win.cancelAnimationFrame(animationID);
-    		clear();
-    	}
-    	board.update();
-    	updateOnCollision();
-    	updateWhenPlayerOnSpecificRow();
-    	board.updateScoreWhenPlayerGotStar(player, score);
+    		//gameShouldContinue = false;
+    		//win.cancelAnimationFrame(animationID);
+    		
+    	} */
+    		board.update();
+    		updateOnCollision();
+    		updateWhenPlayerOnSpecificRow();
+    		board.updateScoreWhenPlayerGotStar(player, score);
+    	
     }
 
     function updateOnCollision() {

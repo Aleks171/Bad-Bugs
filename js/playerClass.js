@@ -73,7 +73,10 @@
         this.removeLife = function() {
             this.lives.pop();
         };
-        this.init = function() {
+        this.restoreLives = function() {
+            this.addLives();
+        };
+        this.attachKeysForPlayer = function() {
             // Key press listener for the player
             document.addEventListener('keyup', function(e) {
                 var allowedKeys = {
@@ -85,7 +88,6 @@
 
                 that.handleInput(allowedKeys[e.keyCode]);
             });
-            this.addLives();
         };
         this.render = function() {
             this.ctx.drawImage(Resources.get(this.sprite), this.location.x, this.location.y);

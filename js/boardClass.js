@@ -20,7 +20,7 @@
 		this.boardWidth = this.imageWidth * this.numColumns;
     	this.ctx = ctx;
 		this.player = new Player(this.boardWidth, this.boardHeight - this.imageHeight, this.imageWidth, this.imageHeight, Life, ctx);
-		this.rows = [];
+		//this.rows = [];
 		this.star;
 		this.getWidth = function() {
 			return this.boardWidth;
@@ -40,7 +40,7 @@
 			});
 		};
 		this.addRow = function(rowNum, rowType, rowImage) {
-			this.rows.push(new Row(rowNum, this.imageHeight, this.imageWidth, this.numColumns, rowType, rowImage, Enemy, this.ctx));
+			this.getRows().push(new Row(rowNum, this.imageHeight, this.imageWidth, this.numColumns, rowType, rowImage, Enemy, this.ctx));
 		};
 		this.getRow = function(index) {
 			return this.rows[index];
@@ -66,7 +66,13 @@
 				rowXposition = row.getRandomColumnPosition();
 			return {rowYposition: rowYposition, rowXposition: rowXposition};
 		};
+		this.reinstantiateRows = function() {
+			var rows = this.getRows();
+			rows = [];
+			this.instantiateRows();
+		};
 		this.instantiateRows = function() {
+			this.rows = [];
 	    	for (var rowNum = 0, row; rowNum < rowsQuantity; rowNum += 1) {
 	    		row = rowImages[rowNum];
 		        if (row === 'images/water-block.png') {
@@ -162,9 +168,10 @@
 	    	// render rows
 	    };
 	    var initialization = (function(that) {
-	    	that.getPlayer().init();
-	    	that.instantiateRows();
-	    	that.createStar();
+	    	var player = that.getPlayer();
+	    	player.attachKeysForPlayer();
+	    	//that.instantiateRows();
+	    	//that.createStar();
 	    })(this);
 	};
 	app.Board = Board;
