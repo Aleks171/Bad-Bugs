@@ -158,9 +158,10 @@
 	    		}
 	    	})
 	    };
-	    this.isCollisionHappened = function(player) {
+	    this.isCollisionHappened = function() {
 	    	var rows = this.getRows(),
-	    		collision = false;
+	    		collision = false,
+	    		player = this.getPlayer();
     		rows.forEach(function(row) {
     			var enemies = row.getEnemies();
     			enemies.forEach(function(enemy) {

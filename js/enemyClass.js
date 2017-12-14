@@ -21,8 +21,10 @@
 	        (player.location.x <= (this.location.x + this.getBugWidth()/1.4)) &&
 	        player.location.y === this.location.y) {
 	        return true;*/
-        if (((player.location.x + player.playerWidth) >= this.location.x) && 
-        	// 0.7 multiplier is needed for proper collision detection due to the margins between the pictures of the enemies
+
+        // 0.8 multiplier is needed for proper collision detection due to the picture margins
+        if (((player.location.x + player.playerWidth * 0.8) >= this.location.x) && 
+        	// 0.7 multiplier is needed for proper collision detection due to the picture margins
         	(player.location.x <= this.location.x + this.getBugWidth()*0.7) && (player.location.y === this.location.y)) {
         	return true;
         }

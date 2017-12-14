@@ -82,7 +82,8 @@ var Game = (function(global) {
     }
 
     function updateOnCollision() {
-    	if (board.isCollisionHappened(player)) {
+    	var player = board.getPlayer();
+    	if (board.isCollisionHappened()) {
     		player.removeLife();
 			player.resetLocation();
     	}
