@@ -53,10 +53,18 @@ var Game = (function(global) {
     		render();
 	    	animationID = win.requestAnimationFrame(main);
     	} else {
-    		clear()
+    		clear();
     		win.cancelAnimationFrame(animationID);
-    		view.modal.createResultGameModal().onConfirm(function() {gameShouldContinue = true;newGame();});
-    	}
+			displayResult();
+		}
+    }
+
+    function displayResult() {
+    	var scoreResult = score.getScore();
+    	view.modal.createResultGameModal(scoreResult).onConfirm(function() {
+    		gameShouldContinue = true;
+    		newGame();
+    	});
     }
 
     function update() {
