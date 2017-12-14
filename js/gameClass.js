@@ -19,12 +19,13 @@ var Game = (function(global) {
             "images/char-pink-girl.png",
             "images/char-princess-girl.png"],
         score = new Score(0, 30, ctx),
-        board = new Board(Player, Enemy, Row, Star, Life, ctx),
-        player = board.getPlayer();
+        board = new Board(Player, Enemy, Row, Star, Life, ctx);
+        //player = board.getPlayer();
         
         var animationID;
 
     function newGame() {
+    	var player = board.getPlayer();
     	score.clearScore();
     	board.instantiateRows();
     	player.resetLocation();
@@ -48,6 +49,7 @@ var Game = (function(global) {
     }
 
     function main() {
+    	var player = board.getPlayer();
     	if (!player.isOutOfLives()) {
     		update();
     		render();
@@ -90,7 +92,8 @@ var Game = (function(global) {
     }
 
     function updateWhenPlayerOnSpecificRow() {
-    	if (board.isPlayerOnCertainRowType(player, 'water-block')) {
+    	var player = board.getPlayer();
+    	if (board.isPlayerOnCertainRowType('water-block')) {
     		score.update(50);
             player.resetLocation();
             board.createStar();

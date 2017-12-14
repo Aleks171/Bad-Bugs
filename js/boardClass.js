@@ -120,9 +120,11 @@
 	    		}
 	    	});
 	    };
-	    this.isPlayerOnCertainRowType = function(player, rowType) {
-	    	var onRow = false;
-	    	this.rows.forEach(function(row) {
+	    this.isPlayerOnCertainRowType = function(rowType) {
+	    	var onRow = false,
+	    		player = this.getPlayer(),
+	    		rows = this.getRows();
+	    	rows.forEach(function(row) {
 	    		if (row.getType() === rowType) {
 	    			if (row.isPlayerOnRow(player)) {
 	    				onRow = true;
