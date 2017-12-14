@@ -79,12 +79,18 @@
 				return false;
 			}
 		};
+		this.renderEnemies = function() {
+			this.getEnemies().forEach(function(enemy) {
+				enemy.render();
+			});
+		};
 	};
 
 	Row.prototype.render = function() {
 		for (var column = 0; column < this.columns; column +=1) {
 			this.ctx.drawImage(Resources.get(this.getImage()), column * this.rowBlockWidth, this.rowNum * this.rowHeight);
 		}
+		this.renderEnemies();
 	}
 
 	Row.randomNumber = function(min, max) {

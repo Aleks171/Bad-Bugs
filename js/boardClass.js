@@ -20,7 +20,6 @@
 		this.boardWidth = this.imageWidth * this.numColumns;
     	this.ctx = ctx;
 		this.player = new Player(this.boardWidth, this.boardHeight - this.imageHeight, this.imageWidth, this.imageHeight, Life, ctx);
-		//this.rows = [];
 		this.star;
 		this.getWidth = function() {
 			return this.boardWidth;
@@ -86,16 +85,25 @@
 		        }
 	    	}
 	    };
+	    this.getStar = function() {
+	    	return this.star;
+	    };
 	    this.createStar = function() {
 	    	var coordinates = this.getRandomCoordinateOnBoard();
     		this.star = new Star(coordinates.rowXposition, coordinates.rowYposition, this.ctx);
+	    };
+	    this.renderStar = function() {
+	    	if (this.star) {
+	    		this.star.render();
+	    	}
 	    };
 	    this.removeStar = function() {
 	    	this.star = null;
 	    };
 	    this.updateScoreWhenPlayerGotStar = function(player, score) {
-	    	if (this.star) {
-		    	if (this.star.isPlayerOnStar(player)) {
+	    	var star = this.getStar();
+	    	if (star) {
+		    	if (star.isPlayerOnStar(player)) {
 		    		score.update(100);
 		    		this.removeStar();
 		    	}
@@ -128,9 +136,6 @@
 
 	    	// remove enemies that are out of row fn
 	    	this.removeOutOfRowEnemies();
-
-	    	// check collision fn
-	    	//this.checkCollision();
 	    };
 	    this.updateEnemies = function() {
 	    	var rows = this.getRows();
@@ -162,16 +167,25 @@
     		});
     		return collision;
 	    };
+	    this.renderPlayer = function() {
+			this.getPlayer().render();
+	    };
+	    this.renderRows = function() {
+	    	this.getRows().forEach(function(row) {
+	    		row.render();
+	    	});
+	    };
 	    this.render = function() {
-	    	// render player
-	    	this.getPlayer().render();
 	    	// render rows
+	    	this.renderRows();
+	    	// render player
+	    	this.renderPlayer();
+	    	// render star
+	    	this.renderStar();
 	    };
 	    var initialization = (function(that) {
 	    	var player = that.getPlayer();
 	    	player.attachKeysForPlayer();
-	    	//that.instantiateRows();
-	    	//that.createStar();
 	    })(this);
 	};
 	app.Board = Board;

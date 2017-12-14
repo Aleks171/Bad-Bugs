@@ -1,5 +1,4 @@
 var Game = (function(global) {
-	console.log(global);
 	var doc = global.document,
 		win = global.window,
 		Resources = global.Resources,
@@ -23,8 +22,7 @@ var Game = (function(global) {
         board = new Board(Player, Enemy, Row, Star, Life, ctx),
         player = board.getPlayer();
         
-        var animationID,
-        gameShouldContinue = true;
+        var animationID;
 
     function newGame() {
     	score.clearScore();
@@ -47,13 +45,6 @@ var Game = (function(global) {
     	canvas.height = 747;
     	doc.body.appendChild(canvas);
     	newGame();
-        /*var modal = view.modal.createChooseHeroesModal(heroesImages);
-        modal.onConfirm(function(){
-        	var imageSrc = modal.getChosenImageSrc();
-        	player.setSprite(imageSrc);
-        	main();
-        });*/
-        //main();
     }
 
     function main() {
@@ -69,17 +60,10 @@ var Game = (function(global) {
     }
 
     function update() {
-    	/*if (player.isOutOfLives()) {
-    		//stop game fn here
-    		//gameShouldContinue = false;
-    		//win.cancelAnimationFrame(animationID);
-    		
-    	} */
-    		board.update();
-    		updateOnCollision();
-    		updateWhenPlayerOnSpecificRow();
-    		board.updateScoreWhenPlayerGotStar(player, score);
-    	
+		board.update();
+		updateOnCollision();
+		updateWhenPlayerOnSpecificRow();
+		board.updateScoreWhenPlayerGotStar(player, score);
     }
 
     function updateOnCollision() {
@@ -100,22 +84,8 @@ var Game = (function(global) {
     // Render player, rows, enemies, score etc.
     function render() {
 		clear();
-    	var rows = board.getRows();
-    	rows.forEach(function(row) {
-    		// Render row
-    		var enemies;
-    		row.render();
-    		enemies = row.getEnemies();
-    		// Render enemies
-    		enemies.forEach(function(enemy) {
-    			enemy.render();
-    		});
-    	});
     	board.render();
     	score.render();
-    	if (board.star) {
-    		board.star.render();
-    	}
     }
 
     function clear() {
