@@ -96,6 +96,7 @@ var Game = (function(global) {
     	if (board.isPlayerOnCertainRowType('water-block')) {
     		score.update(50);
             player.resetLocation();
+            board.setEnemiesSpeedInRow();
             board.createStar();
     	}
     }

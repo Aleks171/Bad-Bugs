@@ -12,6 +12,9 @@
 	    this.getBugWidth = function() {
 	        return bugWidth;
 	    };
+	    this.setSpeed = function(speed) {
+	    	this.speed = speed;
+	    };
 	};
 	Enemy.prototype.update = function() {
     	this.location.x += this.speed;

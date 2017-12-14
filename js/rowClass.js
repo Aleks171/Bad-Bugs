@@ -84,6 +84,14 @@
 				enemy.render();
 			});
 		};
+		this.setEnemiesSpeed = function() {
+			var newSpeed = Row.randomNumber(1, 2);
+			var enemies = this.getEnemies();
+			this.speedOfEnemies = newSpeed;
+			enemies.forEach(function(enemy) {
+				enemy.setSpeed(newSpeed);
+			});
+		};
 	};
 
 	Row.prototype.render = function() {

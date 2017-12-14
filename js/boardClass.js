@@ -152,6 +152,12 @@
 	    		});
 	    	});
 	    };
+	    this.setEnemiesSpeedInRow = function() {
+	    	var rows = this.getRows();
+	    	rows.forEach(function(row) {
+	    		row.setEnemiesSpeed();
+	    	});
+	    };
 	    this.removeOutOfRowEnemies = function() {
 	    	var rows = this.getRows();
 	    	rows.forEach(function(row) {
