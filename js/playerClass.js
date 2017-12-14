@@ -4,7 +4,7 @@
         var that = this;
         this.ctx = ctx;
         this.sprite;
-        this.playerWidth = 101;
+        this.playerWidth = 81;
         this.limitX = limitX;
         this.limitY = limitY;
         this.moveStepX = moveStepX;
@@ -58,7 +58,7 @@
         };
         this.resetLocation = function() {
             this.location = {
-                x: (this.limitX - this.playerWidth)/2,
+                x: (this.limitX - this.moveStepX)/2,
                 y: this.limitY - moveStepY/2
             };
         };
