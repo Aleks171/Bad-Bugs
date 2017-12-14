@@ -15,38 +15,6 @@
         };
         this.initialLivesQuantity = 3;
         this.lives = [];
-        this.handleInput = function(key) {
-            switch (key) {
-                case 'up':
-                    if ((this.location.y - this.moveStepY) < -this.moveStepY) {
-                        break;
-                    } else {
-                        this.location.y = this.location.y - this.moveStepY;
-                        break;
-                    }
-                case 'down':
-                    if ((this.location.y + this.moveStepY) > this.limitY) {
-                        break;
-                    } else {
-                        this.location.y = this.location.y + this.moveStepY;
-                        break;
-                    }
-                case 'left':
-                    if ((this.location.x - this.moveStepX) < 0) {
-                        break;
-                    } else {
-                        this.location.x = this.location.x - this.moveStepX;
-                        break;
-                    }
-                case 'right':
-                    if ((this.location.x + this.moveStepX) >= this.limitX) {
-                        break;
-                    } else {
-                        this.location.x = this.location.x + this.moveStepX;
-                        break;
-                    }
-            }
-        };
         this.setSprite = function(src) {
             this.sprite = src;
         };
@@ -77,17 +45,60 @@
             this.addLives();
         };
         this.attachKeysForPlayer = function() {
-            // Key press listener for the player
-            document.addEventListener('keyup', function(e) {
-                var allowedKeys = {
-                    37: 'left',
-                    38: 'up',
-                    39: 'right',
-                    40: 'down'
-                };
-
-                that.handleInput(allowedKeys[e.keyCode]);
-            });
+            this.instantiateInput();
+            global.setTimeout(function() {
+                document.addEventListener('keyup', function(e) {
+                    var allowedKeys = {
+                        37: 'left',
+                        38: 'up',
+                        39: 'right',
+                        40: 'down'
+                    };
+                    if (that.handleInput) {
+                       that.handleInput(allowedKeys[e.keyCode]); 
+                    }
+                });
+            }, 4000);
+        };
+        this.holdInput = function() {
+            this.handleInput = null;
+            global.setTimeout(function() {
+                that.instantiateInput();
+            }, 1000);
+        };
+        this.instantiateInput = function() {
+            this.handleInput = function(key) {
+                switch (key) {
+                    case 'up':
+                        if ((this.location.y - this.moveStepY) < -this.moveStepY) {
+                            break;
+                        } else {
+                            this.location.y = this.location.y - this.moveStepY;
+                            break;
+                        }
+                    case 'down':
+                        if ((this.location.y + this.moveStepY) > this.limitY) {
+                            break;
+                        } else {
+                            this.location.y = this.location.y + this.moveStepY;
+                            break;
+                        }
+                    case 'left':
+                        if ((this.location.x - this.moveStepX) < 0) {
+                            break;
+                        } else {
+                            this.location.x = this.location.x - this.moveStepX;
+                            break;
+                        }
+                    case 'right':
+                        if ((this.location.x + this.moveStepX) >= this.limitX) {
+                            break;
+                        } else {
+                            this.location.x = this.location.x + this.moveStepX;
+                            break;
+                        }
+                }
+            };
         };
         this.render = function() {
             this.ctx.drawImage(Resources.get(this.sprite), this.location.x, this.location.y);

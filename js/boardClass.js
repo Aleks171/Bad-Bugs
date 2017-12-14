@@ -19,7 +19,7 @@
     	this.boardHeight = rowsQuantity * this.imageHeight;
 		this.boardWidth = this.imageWidth * this.numColumns;
     	this.ctx = ctx;
-		this.player = new Player(this.boardWidth, this.boardHeight - this.imageHeight, this.imageWidth, this.imageHeight, Life, ctx);
+		//this.player = new Player(this.boardWidth, this.boardHeight - this.imageHeight, this.imageWidth, this.imageHeight, Life, ctx);
 		this.star;
 		this.getWidth = function() {
 			return this.boardWidth;
@@ -196,10 +196,18 @@
 	    	// render star
 	    	this.renderStar();
 	    };
-	    var initialization = (function(that) {
-	    	var player = that.getPlayer();
-	    	player.attachKeysForPlayer();
-	    })(this);
+	    this.resetPlayersLocation = function() {
+	    	this.player.resetLocation();
+	    };
+	    this.instantiatePlayerInput = function() {
+	    	this.player.attachKeysForPlayer();
+	    };
+	    this.holdPlayersInput = function() {
+	    	this.player.holdInput();
+	    };
+	    this.initiatePlayer = function() {
+	    	this.player = new Player(this.boardWidth, this.boardHeight - this.imageHeight, this.imageWidth, this.imageHeight, Life, ctx);
+	    };
 	};
 	app.Board = Board;
 	global.App = app;

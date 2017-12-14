@@ -20,7 +20,6 @@ var Game = (function(global) {
             "images/char-princess-girl.png"],
         score = new Score(0, 30, ctx),
         board = new Board(Player, Enemy, Row, Star, Life, ctx);
-        //player = board.getPlayer();
         
         var animationID;
 
@@ -28,14 +27,18 @@ var Game = (function(global) {
     	var player = board.getPlayer();
     	score.clearScore();
     	board.instantiateRows();
-    	player.resetLocation();
-		player.restoreLives();
+    	board.initiatePlayer();
+    	//player.resetLocation();
+		//player.restoreLives();
     	board.createStar();
     	console.log(board);
     	var modal = view.modal.createChooseHeroesModal(heroesImages);
         modal.onConfirm(function(){
-        	var imageSrc = modal.getChosenImageSrc();
+        	var imageSrc = modal.getChosenImageSrc(),
+        		player = board.getPlayer();
         	player.setSprite(imageSrc);
+        	player.addLives();
+        	board.instantiatePlayerInput();
         	main();
         });
     }
@@ -88,16 +91,17 @@ var Game = (function(global) {
     	if (board.isCollisionHappened()) {
     		player.removeLife();
 			player.resetLocation();
+			player.holdInput();
     	}
     }
 
     function updateWhenPlayerOnSpecificRow() {
-    	var player = board.getPlayer();
     	if (board.isPlayerOnCertainRowType('water-block')) {
     		score.update(50);
-            player.resetLocation();
+            board.resetPlayersLocation();
             board.setEnemiesSpeedInRow();
             board.createStar();
+            board.holdPlayersInput();
     	}
     }
 
