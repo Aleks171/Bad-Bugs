@@ -100,13 +100,17 @@
 	    this.removeStar = function() {
 	    	this.star = null;
 	    };
-	    this.updateScoreWhenPlayerGotStar = function(player, score) {
-	    	var star = this.getStar();
+	    this.isPlayerGotStar = function() {
+	    	var star = this.getStar(),
+	    	player = this.getPlayer();
 	    	if (star) {
-		    	if (star.isPlayerOnStar(player)) {
-		    		score.update(100);
-		    		this.removeStar();
-		    	}
+	    		if (star.isPlayerOnStar(player)) {
+	    			return true;
+	    		} else {
+	    			return false;
+	    		}
+	    	} else {
+	    		return false;
 	    	}
 	    };
 	    this.generateEnemies = function() {

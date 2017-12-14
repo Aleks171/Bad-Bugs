@@ -67,11 +67,18 @@ var Game = (function(global) {
     	});
     }
 
+    function updateOnItemCollection() {
+    	if (board.isPlayerGotStar()) {
+    		score.update(100);
+    		board.removeStar();
+    	}
+    }
+
     function update() {
 		board.update();
 		updateOnCollision();
 		updateWhenPlayerOnSpecificRow();
-		board.updateScoreWhenPlayerGotStar(player, score);
+		updateOnItemCollection();
     }
 
     function updateOnCollision() {
