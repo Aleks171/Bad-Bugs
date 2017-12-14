@@ -10,7 +10,7 @@
         this.moveStepX = moveStepX;
         this.moveStepY = moveStepY;
         this.location = {
-            x: (this.limitX - this.playerWidth)/2,
+            x: (this.limitX - this.moveStepX)/2,
             y: this.limitY - moveStepY/2
         };
         this.initialLivesQuantity = 3;

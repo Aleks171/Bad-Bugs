@@ -61,7 +61,7 @@
 		this.generateEnemy = function() {
 			var enemy = this.enemies[this.enemies.length-1];
 			if (enemy) {
-				if ((this.rowStartPosition + enemy.location.x) > enemy.getBugWidth() * this.distanceBetweenEnemiesMultiplicator) {
+				if ((this.rowStartPosition + enemy.location.x) > this.rowBlockWidth * this.distanceBetweenEnemiesMultiplicator) {
 					this.addEnemy(new Enemy(this.enemyPositionInRow, this.speedOfEnemies, this.ctx));
 					this.distanceBetweenEnemiesMultiplicator = Row.randomNumber(2, 3);
 				}
