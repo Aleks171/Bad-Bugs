@@ -24,20 +24,12 @@ var Game = (function(global) {
         var animationID;
 
     function newGame() {
-    	var player = board.getPlayer();
     	score.clearScore();
-    	board.instantiateRows();
-    	board.initiatePlayer();
-    	//player.resetLocation();
-		//player.restoreLives();
-    	board.createStar();
-    	console.log(board);
+    	board.init();
     	var modal = view.modal.createChooseHeroesModal(heroesImages);
         modal.onConfirm(function(){
-        	var imageSrc = modal.getChosenImageSrc(),
-        		player = board.getPlayer();
-        	player.setSprite(imageSrc);
-        	player.addLives();
+        	var imageSrc = modal.getChosenImageSrc();
+        	board.setPlayersImage(imageSrc);
         	board.instantiatePlayerInput();
         	main();
         });

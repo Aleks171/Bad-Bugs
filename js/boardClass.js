@@ -197,16 +197,31 @@
 	    	this.renderStar();
 	    };
 	    this.resetPlayersLocation = function() {
-	    	this.player.resetLocation();
+	    	this.getPlayer().resetLocation();
 	    };
 	    this.instantiatePlayerInput = function() {
-	    	this.player.attachKeysForPlayer();
+	    	this.getPlayer().attachKeysForPlayer();
 	    };
 	    this.holdPlayersInput = function() {
-	    	this.player.holdInput();
+	    	this.getPlayer().holdInput();
 	    };
-	    this.initiatePlayer = function() {
-	    	this.player = new Player(this.boardWidth, this.boardHeight - this.imageHeight, this.imageWidth, this.imageHeight, Life, ctx);
+	    this.createPlayer = function() {
+	    	var player = new Player(this.boardWidth, this.boardHeight - this.imageHeight, this.imageWidth, this.imageHeight, Life, ctx);
+	    	player.initLives();
+	    	this.player = player;
+	    };
+	    this.setPlayersImage = function(imgSrc) {
+	    	this.getPlayer().setSprite(imgSrc);
+	    };
+	    this.init = function() {
+	    	// instantiate rows
+	    	this.instantiateRows();
+
+	    	//create player
+	    	this.createPlayer();
+
+	    	// create star
+	    	this.createStar();
 	    };
 	};
 	app.Board = Board;

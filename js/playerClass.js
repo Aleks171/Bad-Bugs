@@ -58,7 +58,7 @@
                        that.handleInput(allowedKeys[e.keyCode]); 
                     }
                 });
-            }, 4000);
+            }, 3500);
         };
         this.holdInput = function() {
             this.handleInput = null;
@@ -116,6 +116,9 @@
             } else {
                 return false;
             }
+        };
+        this.initLives = function() {
+            this.addLives();
         };
     };
     app.Player = Player;
