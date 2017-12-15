@@ -18,23 +18,38 @@
         this.setSprite = function(src) {
             this.sprite = src;
         };
+        this.getSprite = function() {
+            return this.sprite;
+        };
         this.getLocationX = function() {
             return this.location.x;
         };
         this.getLocationY = function() {
             return this.location.y;
         };
+        this.getMoveStepX = function() {
+            return this.moveStepX;
+        };
+        this.getMoveStepY = function() {
+            return this.moveStepY;
+        };
+        this.getLimitX = function() {
+            return this.limitX;
+        };
+        this.getLimitY = function() {
+            return this.limitY;
+        };
         this.resetLocation = function() {
             this.location = {
-                x: (this.limitX - this.moveStepX)/2,
-                y: this.limitY - moveStepY/2
+                x: (this.getLimitX() - this.getMoveStepX())/2,
+                y: this.getLimitY() - this.getMoveStepY()/2
             };
         };
         this.addLives = function() {
             for (var i = 0, startPositionX = 354, startPositionY = -15; i < this.initialLivesQuantity; i += 1) {
                 var life = new Life(startPositionX, startPositionY, ctx),
                     lifeWidth = life.getWidth()/2;
-                this.lives.push(life);
+                this.getLives().push(life);
                 startPositionX += lifeWidth;
             }
         };
@@ -73,48 +88,48 @@
             this.handleInput = function(key) {
                 switch (key) {
                     case 'up':
-                        if ((this.location.y - this.moveStepY) < -this.moveStepY) {
+                        if ((this.getLocationY() - this.getMoveStepY()) < -this.getMoveStepY()) {
                             break;
                         } else {
-                            this.location.y = this.location.y - this.moveStepY;
+                            this.location.y = this.getLocationY() - this.getMoveStepY();
                             break;
                         }
                     case 'down':
-                        if ((this.location.y + this.moveStepY) > this.limitY) {
+                        if ((this.getLocationY() + this.getMoveStepY()) > this.getLimitY()) {
                             break;
                         } else {
-                            this.location.y = this.location.y + this.moveStepY;
+                            this.location.y = this.getLocationY() + this.getMoveStepY();
                             break;
                         }
                     case 'left':
-                        if ((this.location.x - this.moveStepX) < 0) {
+                        if ((this.getLocationX() - this.getMoveStepX()) < 0) {
                             break;
                         } else {
-                            this.location.x = this.location.x - this.moveStepX;
+                            this.location.x = this.getLocationX() - this.getMoveStepX();
                             break;
                         }
                     case 'right':
-                        if ((this.location.x + this.moveStepX) >= this.limitX) {
+                        if ((this.getLocationX() + this.getMoveStepX()) >= this.getLimitX()) {
                             break;
                         } else {
-                            this.location.x = this.location.x + this.moveStepX;
+                            this.location.x = this.getLocationX() + this.getMoveStepX();
                             break;
                         }
                 }
             };
         };
         this.render = function() {
-            this.ctx.drawImage(Resources.get(this.sprite), this.location.x, this.location.y);
+            this.ctx.drawImage(Resources.get(this.getSprite()), this.getLocationX(), this.getLocationY());
             this.renderLives();
 
         };
         this.renderLives = function() {
-            this.lives.forEach(function(life) {
+            this.getLives().forEach(function(life) {
                 life.render();
             });
         };
         this.isOutOfLives = function() {
-            if (this.lives.length === 0) {
+            if (this.getLives().length === 0) {
                 return true;
             } else {
                 return false;
