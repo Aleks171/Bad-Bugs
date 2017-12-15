@@ -12,16 +12,28 @@
 	    this.getBugWidth = function() {
 	        return bugWidth;
 	    };
-	    this.setSpeed = function(speed) {
-	    	this.speed = speed;
-	    };
+	};
+	Enemy.prototype.getSprite = function() {
+		return this.sprite;
+	};
+	Enemy.prototype.setSpeed = function(speed) {
+    	this.speed = speed;
+    };
+    Enemy.prototype.getSpeed = function() {
+		return this.speed;
+    };
+	Enemy.prototype.getLocationX = function() {
+		return this.location.x;
+	};
+	Enemy.prototype.getLocationY = function() {
+		return this.location.y;
 	};
 	Enemy.prototype.update = function() {
-    	this.location.x += this.speed;
+    	this.location.x += this.getSpeed();
 	}
 	Enemy.prototype.checkCollision = function(player) {
-        if (((player.location.x + player.playerWidth * 0.8) >= this.location.x) && 
-        	(player.location.x <= this.location.x + this.getBugWidth()) && (player.location.y === this.location.y)) {
+        if (((player.location.x + player.playerWidth * 0.8) >= this.getLocationX()) && 
+        	(player.location.x <= this.getLocationX() + this.getBugWidth()) && (player.location.y === this.getLocationY())) {
         	return true;
         }
 	     else {
@@ -29,7 +41,7 @@
 	    }
 	}
 	Enemy.prototype.render = function() {
-	   this.ctx.drawImage(Resources.get(this.sprite), this.location.x, this.location.y);
+	   this.ctx.drawImage(Resources.get(this.getSprite()), this.getLocationX(), this.getLocationY());
 	}
 	app.Enemy = Enemy;
     global.App = app;

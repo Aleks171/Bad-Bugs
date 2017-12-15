@@ -42,7 +42,7 @@
 			this.enemies.shift();
 		};
 		this.isEnemyOutOfRow = function(enemy) {
-			if ((enemy.location.x) > this.rowWidth) {
+			if ((enemy.getLocationX()) > this.rowWidth) {
 				return true;
 			} else {
 				return false;
@@ -61,7 +61,7 @@
 		this.generateEnemy = function() {
 			var enemy = this.enemies[this.enemies.length-1];
 			if (enemy) {
-				if ((this.rowStartPosition + enemy.location.x) > this.rowBlockWidth * this.distanceBetweenEnemiesMultiplicator) {
+				if ((this.rowStartPosition + enemy.getLocationX()) > this.rowBlockWidth * this.distanceBetweenEnemiesMultiplicator) {
 					this.addEnemy(new Enemy(this.enemyPositionInRow, this.speedOfEnemies, this.ctx));
 					this.distanceBetweenEnemiesMultiplicator = Row.randomNumber(2, 3);
 				}
