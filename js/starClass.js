@@ -8,16 +8,22 @@
 		};
 		this.ctx = ctx;
 		this.isPlayerOnStar = function(player) {
-			if ((this.location.x === player.getLocationX()) && (this.location.y === player.getLocationY())) {
+			if ((this.getLocationX() === player.getLocationX()) && (this.getLocationY() === player.getLocationY())) {
 				return true;
 			} else {
 				return false;
 			}
 		};
 	};
+	Star.prototype.getLocationX = function() {
+		return this.location.x;
+	};
+	Star.prototype.getLocationY = function() {
+		return this.location.y;
+	};
 	Star.prototype.render = function() {
-	   this.ctx.drawImage(Resources.get(this.sprite), this.location.x, this.location.y);
-	}
+	   this.ctx.drawImage(Resources.get(this.sprite), this.getLocationX(), this.getLocationY());
+	};
 	app.Star = Star;
 	global.App = app;
 })(this);
