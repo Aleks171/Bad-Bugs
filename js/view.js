@@ -1,26 +1,27 @@
 (function(global) {
-    var app = global.App || {};
+    var app = global.App || {},
+        doc = document;
     var view = {};
     view.modal = (function() {
         function appendToBody(element) {
-            document.body.appendChild(element);
+            doc.body.appendChild(element);
         }
 
         function createModal() {
-            var modal = document.createElement('div');
+            var modal = doc.createElement('div');
             modal.id = 'myModal';
             modal.classList.add('modal');
             return modal;
         }
 
         function closeModal(modal) {
-            document.body.removeChild(modal);
+            doc.body.removeChild(modal);
         }
 
         function createModalContent(modal) {
-            var modalContent = document.createElement('div'),
-                span = document.createElement('span'),
-                buttons = document.createElement('div');
+            var modalContent = doc.createElement('div'),
+                span = doc.createElement('span'),
+                buttons = doc.createElement('div');
             modalContent.classList.add('modal-content');
             span.innerHTML = '&times;';
             span.classList.add('modal-close');
@@ -30,16 +31,16 @@
         }
 
         function addText(text) {
-            var textEl = document.createElement('p');
+            var textEl = doc.createElement('p');
             textEl.classList.add('modal-text');
             textEl.innerHTML = text;
             return textEl;
         }
 
         function createButtons(modal) {
-            var button1 = document.createElement('button'),
-                button2 = document.createElement('button'),
-                buttons = document.createElement('div');
+            var button1 = doc.createElement('button'),
+                button2 = doc.createElement('button'),
+                buttons = doc.createElement('div');
             button1.classList.add('btn', 'success');
             button1.innerHTML = 'OK';
             button1.addEventListener('click', function(e) {e.preventDefault(); closeModal(modal)});
@@ -75,10 +76,10 @@
             }
             
             function createModalImages(images) {
-                var imagesDiv = document.createElement('div');
+                var imagesDiv = doc.createElement('div');
                 imagesDiv.classList.add('modal-images');
                 for (var i = 0, length = images.length; i < length; i += 1) {
-                    var image = document.createElement('img');
+                    var image = doc.createElement('img');
                     image.src = images[i];
                     imagesDiv.appendChild(image);
                     if (i === 0) {

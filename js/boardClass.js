@@ -133,6 +133,22 @@
 	    	});
 	    	return onRow;
 	    };
+	    this.isPlayerOutOfLives = function() {
+	    	var player = this.getPlayer();
+	    	if (player.isOutOfLives()) {
+	    		return true;
+	    	} else {
+	    		return false;
+	    	}
+	    };
+	    this.reactWhenPlayerOnRow = function(rowType) {
+	    	if (rowType === 'water-block') {
+	            this.resetPlayersLocation();
+	            this.setEnemiesSpeedInRow();
+	            this.createStar();
+	            this.holdPlayersInput();
+    		}
+	    };
 	    this.update = function() {
 	    	// generate enemies fn
 	    	this.generateEnemies();
@@ -212,6 +228,12 @@
 	    };
 	    this.setPlayersImage = function(imgSrc) {
 	    	this.getPlayer().setSprite(imgSrc);
+	    };
+	    this.onCollisionWithEnemy = function() {
+	    	var player = this.getPlayer();
+	    	player.removeLife();
+			player.resetLocation();
+			player.holdInput();
 	    };
 	    this.init = function() {
 	    	// instantiate rows

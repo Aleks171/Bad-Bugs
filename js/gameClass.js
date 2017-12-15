@@ -19,9 +19,16 @@ var Game = (function(global) {
             "images/char-pink-girl.png",
             "images/char-princess-girl.png"],
         score = new Score(0, 30, ctx),
-        board = new Board(Player, Enemy, Row, Star, Life, ctx);
-        
-        var animationID;
+        board = new Board(Player, Enemy, Row, Star, Life, ctx),
+        animationID;
+
+    function init() {
+    	// Canvas dimensions
+    	canvas.width = board.getWidth();
+    	canvas.height = 747;
+    	doc.body.appendChild(canvas);
+    	newGame();
+    }
 
     function newGame() {
     	score.clearScore();
@@ -35,17 +42,8 @@ var Game = (function(global) {
         });
     }
 
-    function init() {
-    	// Canvas dimensions
-    	canvas.width = board.getWidth();
-    	canvas.height = 747;
-    	doc.body.appendChild(canvas);
-    	newGame();
-    }
-
     function main() {
-    	var player = board.getPlayer();
-    	if (!player.isOutOfLives()) {
+    	if (!board.isPlayerOutOfLives()) {
     		update();
     		render();
 	    	animationID = win.requestAnimationFrame(main);
@@ -56,10 +54,29 @@ var Game = (function(global) {
 		}
     }
 
+    function update() {
+		board.update();
+		updateOnCollision();
+		updateWhenPlayerOnSpecificRow('water-block');
+		updateOnItemCollection();
+    }
+
+    function updateOnCollision() {
+    	if (board.isCollisionHappened()) {
+    		board.onCollisionWithEnemy();
+    	}
+    }
+
+    function updateWhenPlayerOnSpecificRow(rowType) {
+    	if (board.isPlayerOnCertainRowType(rowType)) {
+    		board.reactWhenPlayerOnRow(rowType);
+    		score.update(50);
+    	}
+    }
+
     function displayResult() {
     	var scoreResult = score.getScore();
     	view.modal.createResultGameModal(scoreResult).onConfirm(function() {
-    		gameShouldContinue = true;
     		newGame();
     	});
     }
@@ -68,32 +85,6 @@ var Game = (function(global) {
     	if (board.isPlayerGotStar()) {
     		score.update(100);
     		board.removeStar();
-    	}
-    }
-
-    function update() {
-		board.update();
-		updateOnCollision();
-		updateWhenPlayerOnSpecificRow();
-		updateOnItemCollection();
-    }
-
-    function updateOnCollision() {
-    	var player = board.getPlayer();
-    	if (board.isCollisionHappened()) {
-    		player.removeLife();
-			player.resetLocation();
-			player.holdInput();
-    	}
-    }
-
-    function updateWhenPlayerOnSpecificRow() {
-    	if (board.isPlayerOnCertainRowType('water-block')) {
-    		score.update(50);
-            board.resetPlayersLocation();
-            board.setEnemiesSpeedInRow();
-            board.createStar();
-            board.holdPlayersInput();
     	}
     }
 

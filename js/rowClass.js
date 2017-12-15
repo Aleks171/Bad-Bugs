@@ -85,8 +85,8 @@
 			});
 		};
 		this.setEnemiesSpeed = function() {
-			var newSpeed = Row.randomNumber(1, 2);
-			var enemies = this.getEnemies();
+			var newSpeed = Row.randomNumber(1, 2),
+				enemies = this.getEnemies();
 			this.speedOfEnemies = newSpeed;
 			enemies.forEach(function(enemy) {
 				enemy.setSpeed(newSpeed);
@@ -95,14 +95,13 @@
 	};
 
 	Row.prototype.render = function() {
-		for (var column = 0; column < this.columns; column +=1) {
+		for (var column = 0; column < this.columns; column += 1) {
 			this.ctx.drawImage(Resources.get(this.getImage()), column * this.rowBlockWidth, this.rowNum * this.rowHeight);
 		}
 		this.renderEnemies();
 	}
 
 	Row.randomNumber = function(min, max) {
-		//return Math.round(Math.random() + 1);
 		return Math.round(((max - min) * Math.random()) + min);
 	};
 

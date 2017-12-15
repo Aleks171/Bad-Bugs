@@ -38,8 +38,11 @@
                 startPositionX += lifeWidth;
             }
         };
+        this.getLives = function() {
+            return this.lives;
+        };
         this.removeLife = function() {
-            this.lives.pop();
+            this.getLives().pop();
         };
         this.restoreLives = function() {
             this.addLives();
@@ -47,7 +50,7 @@
         this.attachKeysForPlayer = function() {
             this.instantiateInput();
             global.setTimeout(function() {
-                document.addEventListener('keyup', function(e) {
+                global.addEventListener('keyup', function(e) {
                     var allowedKeys = {
                         37: 'left',
                         38: 'up',
