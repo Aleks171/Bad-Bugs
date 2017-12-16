@@ -16,15 +16,23 @@
 	    this.numColumns = 5;
     	this.imageWidth = 101;
 	    this.imageHeight = 83;
-    	this.boardHeight = rowsQuantity * this.imageHeight;
+	    this.boardOffset = 88;
+    	this.boardHeight = rowsQuantity * this.imageHeight + this.boardOffset;
 		this.boardWidth = this.imageWidth * this.numColumns;
+		this.playersMoveLimitY = (rowsQuantity-1) * this.imageHeight;
     	this.ctx = ctx;
 		this.star;
+		this.getHeight = function() {
+			return this.boardHeight;
+		};
 		this.getWidth = function() {
 			return this.boardWidth;
 		};
 		this.getHeight = function() {
 			return this.boardHeight;
+		};
+		this.getPlayersMoveLimitY = function() {
+			return this.playersMoveLimitY;
 		};
 		this.getPlayer = function() {
 			return this.player;
@@ -216,7 +224,7 @@
 	    	this.getPlayer().holdInput(time);
 	    };
 	    this.createPlayer = function() {
-	    	var player = new Player(this.boardWidth, this.boardHeight - this.imageHeight, this.imageWidth, this.imageHeight, Life, ctx);
+	    	var player = new Player(this.getWidth(), this.getPlayersMoveLimitY(), this.imageWidth, this.imageHeight, Life, ctx);
 	    	this.player = player;
 	    };
 	    this.setPlayersImage = function(imgSrc) {

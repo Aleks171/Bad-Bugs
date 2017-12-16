@@ -26,7 +26,7 @@ var Game = (function(global) {
     	board.init();
     	// Canvas dimensions
     	canvas.width = board.getWidth();
-    	canvas.height = 747;
+    	canvas.height = board.getHeight();
     	doc.body.appendChild(canvas);
     	newGame();
     }
