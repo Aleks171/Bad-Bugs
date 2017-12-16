@@ -19,7 +19,6 @@
     	this.boardHeight = rowsQuantity * this.imageHeight;
 		this.boardWidth = this.imageWidth * this.numColumns;
     	this.ctx = ctx;
-		//this.player = new Player(this.boardWidth, this.boardHeight - this.imageHeight, this.imageWidth, this.imageHeight, Life, ctx);
 		this.star;
 		this.getWidth = function() {
 			return this.boardWidth;
@@ -38,15 +37,12 @@
 				row.render();
 			});
 		};
-		this.addRow = function(rowNum, rowType, rowImage) {
-			this.getRows().push(new Row(rowNum, this.imageHeight, this.imageWidth, this.numColumns, rowType, rowImage, Enemy, this.ctx));
-		};
 		this.getRow = function(index) {
 			return this.rows[index];
 		};
 		this.getIndexesOfRowsWithEnemies = function() {
 			var rowsWithEnemies = [];
-			this.rows.forEach(function(row, index) {
+			this.getRows().forEach(function(row, index) {
 				if (row.getType() === 'stone-block') {
 					rowsWithEnemies.push(index);
 				}
@@ -65,10 +61,8 @@
 				rowXposition = row.getRandomColumnPosition();
 			return {rowYposition: rowYposition, rowXposition: rowXposition};
 		};
-		this.reinstantiateRows = function() {
-			var rows = this.getRows();
-			rows = [];
-			this.instantiateRows();
+		this.addRow = function(rowNum, rowType, rowImage) {
+			this.getRows().push(new Row(rowNum, this.imageHeight, this.imageWidth, this.numColumns, rowType, rowImage, Enemy, this.ctx));
 		};
 		this.instantiateRows = function() {
 			this.rows = [];
@@ -146,7 +140,7 @@
 	            this.resetPlayersLocation();
 	            this.setEnemiesSpeedInRow();
 	            this.createStar();
-	            this.holdPlayersInput();
+	            this.holdPlayersInput(1000);
     		}
 	    };
 	    this.update = function() {
@@ -218,12 +212,11 @@
 	    this.instantiatePlayerInput = function() {
 	    	this.getPlayer().attachKeysForPlayer();
 	    };
-	    this.holdPlayersInput = function() {
-	    	this.getPlayer().holdInput();
+	    this.holdPlayersInput = function(time) {
+	    	this.getPlayer().holdInput(time);
 	    };
 	    this.createPlayer = function() {
 	    	var player = new Player(this.boardWidth, this.boardHeight - this.imageHeight, this.imageWidth, this.imageHeight, Life, ctx);
-	    	player.initLives();
 	    	this.player = player;
 	    };
 	    this.setPlayersImage = function(imgSrc) {
@@ -233,17 +226,17 @@
 	    	var player = this.getPlayer();
 	    	player.removeLife();
 			player.resetLocation();
-			player.holdInput();
+			player.holdInput(1000);
+	    };
+	    this.resetPlayer = function() {
+	    	var player =  this.getPlayer();
+	    	player.initLives();
 	    };
 	    this.init = function() {
-	    	// instantiate rows
-	    	this.instantiateRows();
-
 	    	//create player
 	    	this.createPlayer();
-
-	    	// create star
-	    	this.createStar();
+	    	// init player's input
+	    	this.instantiatePlayerInput();
 	    };
 	};
 	app.Board = Board;

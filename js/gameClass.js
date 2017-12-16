@@ -23,6 +23,7 @@ var Game = (function(global) {
         animationID;
 
     function init() {
+    	board.init();
     	// Canvas dimensions
     	canvas.width = board.getWidth();
     	canvas.height = 747;
@@ -32,12 +33,14 @@ var Game = (function(global) {
 
     function newGame() {
     	score.clearScore();
-    	board.init();
+    	board.instantiateRows();
+    	board.createStar();
+    	board.resetPlayer();
     	var modal = view.modal.createChooseHeroesModal(heroesImages);
         modal.onConfirm(function(){
         	var imageSrc = modal.getChosenImageSrc();
         	board.setPlayersImage(imageSrc);
-        	board.instantiatePlayerInput();
+        	board.holdPlayersInput(4000);
         	main();
         });
     }

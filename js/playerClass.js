@@ -52,20 +52,21 @@
                 this.getLives().push(life);
                 startPositionX += lifeWidth;
             }
+            this.currentAmountOfLives = this.initialLivesQuantity;
         };
         this.getLives = function() {
             return this.lives;
         };
+        this.getCurrentAmountOfLives = function() {
+            return this.currentAmountOfLives;
+        };
         this.removeLife = function() {
             this.getLives().pop();
-        };
-        this.restoreLives = function() {
-            this.addLives();
+            this.currentAmountOfLives -= 1;
         };
         this.attachKeysForPlayer = function() {
             this.instantiateInput();
-            global.setTimeout(function() {
-                global.addEventListener('keyup', function(e) {
+            global.addEventListener('keyup', function(e) {
                     var allowedKeys = {
                         37: 'left',
                         38: 'up',
@@ -75,14 +76,13 @@
                     if (that.handleInput) {
                        that.handleInput(allowedKeys[e.keyCode]); 
                     }
-                });
-            }, 3500);
+            });
         };
-        this.holdInput = function() {
+        this.holdInput = function(time) {
             this.handleInput = null;
             global.setTimeout(function() {
                 that.instantiateInput();
-            }, 1000);
+            }, time);
         };
         this.instantiateInput = function() {
             this.handleInput = function(key) {
@@ -129,7 +129,7 @@
             });
         };
         this.isOutOfLives = function() {
-            if (this.getLives().length === 0) {
+            if (this.getCurrentAmountOfLives() < 0) {
                 return true;
             } else {
                 return false;
