@@ -186,12 +186,9 @@
 	    		collision = false,
 	    		player = this.getPlayer();
     		rows.forEach(function(row) {
-    			var enemies = row.getEnemies();
-    			enemies.forEach(function(enemy) {
-	    			if (enemy.checkCollision(player)) {
-	    				collision = true;
-	    			}
-    			});
+    			if (row.checkCollisionWithEnemies(player)) {
+    				collision = true;
+    			}
     		});
     		return collision;
 	    };

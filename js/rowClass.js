@@ -110,6 +110,16 @@
 			enemy.setSpeed(newSpeed);
 		});
 	};
+	Row.prototype.checkCollisionWithEnemies = function(player) {
+		var enemies = this.getEnemies(),
+			collision = false;
+		enemies.forEach(function(enemy) {
+			if (enemy.checkCollision(player)) {
+				collision = true;
+			}
+		});
+		return collision;
+	};
 	Row.prototype.update = function() {
 		var enemies = this.getEnemies();
 		enemies.forEach(function(enemy) {
