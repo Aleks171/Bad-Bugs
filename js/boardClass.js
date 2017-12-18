@@ -164,10 +164,7 @@
 	    this.updateEnemies = function() {
 	    	var rows = this.getRows();
 	    	rows.forEach(function(row) {
-	    		var enemies = row.getEnemies();
-	    		enemies.forEach(function(enemy) {
-	    			enemy.update();
-	    		});
+	    		row.update();
 	    	});
 	    };
 	    this.setEnemiesSpeedInRow = function() {

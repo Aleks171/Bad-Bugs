@@ -1,7 +1,7 @@
 (function(global) {
     var app = global.App || {},
-        doc = document;
-    var view = {};
+        doc = document,
+        view = {};
     view.modal = (function() {
         function appendToBody(element) {
             doc.body.appendChild(element);

@@ -110,6 +110,12 @@
 			enemy.setSpeed(newSpeed);
 		});
 	};
+	Row.prototype.update = function() {
+		var enemies = this.getEnemies();
+		enemies.forEach(function(enemy) {
+			enemy.update();
+		});
+	};
 	Row.prototype.render = function() {
 		for (var column = 0; column < this.columns; column += 1) {
 			this.ctx.drawImage(Resources.get(this.getImage()), column * this.rowBlockWidth, this.rowNum * this.rowHeight);
