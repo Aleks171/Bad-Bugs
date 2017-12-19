@@ -18,8 +18,20 @@ var Game = (function(global) {
             "images/char-horn-girl.png",
             "images/char-pink-girl.png",
             "images/char-princess-girl.png"],
+    	level = {
+    		rows: [
+	        'images/water-block.png',
+	        'images/stone-block.png',
+	        'images/stone-block.png',
+	        'images/stone-block.png',
+	        'images/stone-block.png',
+	        'images/grass-block.png',
+	        'images/grass-block.png'
+	    	],
+    		columns: 5
+    	},
         score = new Score(0, 30, ctx),
-        board = new Board(Player, Enemy, Row, Star, Life, ctx),
+        board = new Board(level, Player, Enemy, Row, Star, Life, ctx),
         animationID;
 
     function init() {

@@ -1,19 +1,10 @@
 (function(global) {
 	var app = global.App || {};
-	var Board = function(Player, Enemy, Row, Star, Life, ctx) {
-		var that = this;
-		var rowImages = [
-	        'images/water-block.png',   // Top row is water
-	        'images/stone-block.png',   // Row 1 of 4 of stone
-	        'images/stone-block.png',   // Row 2 of 4 of stone
-	        'images/stone-block.png',   // Row 3 of 4 of stone
-	        'images/stone-block.png',   // Row 4 of 4 of stone
-	        'images/grass-block.png',   // Row 5 of 2 of grass
-	        'images/grass-block.png'
-	    	],
-	    	rowsQuantity = rowImages.length;
+	var Board = function(level, Player, Enemy, Row, Star, Life, ctx) {
+		var that = this,
+	    	rowsQuantity = level.rows.length;
 
-	    this.numColumns = 5;
+	    this.numColumns = level.columns;
     	this.imageWidth = 101;
 	    this.imageHeight = 83;
 	    this.boardOffset = 88;
@@ -75,7 +66,7 @@
 		this.instantiateRows = function() {
 			this.rows = [];
 	    	for (var rowNum = 0, row; rowNum < rowsQuantity; rowNum += 1) {
-	    		row = rowImages[rowNum];
+	    		row = level.rows[rowNum];
 		        if (row === 'images/water-block.png') {
 		            this.addRow(rowNum, 'water-block', 'images/water-block.png');
 		        }

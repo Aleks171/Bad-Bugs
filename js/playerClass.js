@@ -10,8 +10,8 @@
         this.moveStepX = moveStepX;
         this.moveStepY = moveStepY;
         this.location = {
-            x: (this.limitX - this.moveStepX)/2,
-            y: this.limitY - moveStepY/2
+            x: (this.limitX % 2 === 0) ? this.limitX/2 : this.limitX/2 - this.moveStepX/2,
+            y: this.limitY - this.moveStepY/2
         };
         this.initialLivesQuantity = 3;
         this.lives = [];
@@ -41,12 +41,12 @@
         };
         this.resetLocation = function() {
             this.location = {
-                x: (this.getLimitX() - this.getMoveStepX())/2,
-                y: this.getLimitY() - this.getMoveStepY()/2
+                x: (this.limitX % 2 === 0) ? this.limitX/2 : this.limitX/2 - this.moveStepX/2,
+                y: this.limitY - this.moveStepY/2
             };
         };
         this.addLives = function() {
-            for (var i = 0, startPositionX = 354, startPositionY = -15; i < this.initialLivesQuantity; i += 1) {
+            for (var i = 0, startPositionX = this.getLimitX() - this.getLimitX()/3, startPositionY = -15; i < this.initialLivesQuantity; i += 1) {
                 var life = new Life(startPositionX, startPositionY, ctx),
                     lifeWidth = life.getWidth()/2;
                 this.getLives().push(life);
@@ -121,7 +121,6 @@
         this.render = function() {
             this.ctx.drawImage(Resources.get(this.getSprite()), this.getLocationX(), this.getLocationY());
             this.renderLives();
-
         };
         this.renderLives = function() {
             this.getLives().forEach(function(life) {
