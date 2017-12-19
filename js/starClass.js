@@ -7,13 +7,16 @@
 			y: y - 41.5
 		};
 		this.ctx = ctx;
-		this.isPlayerOnStar = function(player) {
-			if ((this.getLocationX() === player.getLocationX()) && (this.getLocationY() === player.getLocationY())) {
-				return true;
-			} else {
-				return false;
-			}
-		};
+	};
+	Star.prototype.getSprite = function() {
+		return this.sprite;
+	};
+	Star.prototype.isPlayerOnStar = function(player) {
+		if ((this.getLocationX() === player.getLocationX()) && (this.getLocationY() === player.getLocationY())) {
+			return true;
+		} else {
+			return false;
+		}
 	};
 	Star.prototype.getLocationX = function() {
 		return this.location.x;
