@@ -4,10 +4,12 @@
  * a simple "caching" layer so it will reuse cached images if you attempt
  * to load the same image multiple times.
  */
-(function() {
-    var resourceCache = {};
-    var loading = [];
-    var readyCallbacks = [];
+(function(global) {
+    var resourceCache = {},
+        loading = [],
+        readyCallbacks = [];
+    var app = global.App || {},
+        utils = app.utils || {};
 
     /* This is the publicly accessible image loading function. It accepts
      * an array of strings pointing to image files or a string for a single
@@ -37,7 +39,7 @@
     function _load(url) {
         if(resourceCache[url]) {
             /* If this URL has been previously loaded it will exist within
-             * our resourceCache array. Just return that image rather
+             * our resourceCache hash. Just return that image rather then
              * re-loading the image.
              */
             return resourceCache[url];
@@ -102,10 +104,13 @@
     /* This object defines the publicly accessible functions available to
      * developers by creating a global Resources object.
      */
-    window.Resources = {
+    utils.Resources = {
         load: load,
         get: get,
         onReady: onReady,
-        isReady: isReady
+        isReady: isReady,
+        resourceCache: resourceCache
     };
-})();
+    app.utils = utils;
+    global.App = app;
+})(this);

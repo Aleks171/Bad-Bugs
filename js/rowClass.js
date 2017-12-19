@@ -1,5 +1,6 @@
 (function(global) {
-	var app = global.App || {};
+	var app = global.App || {},
+		Resources = app.utils.Resources;
 
 	var Row = function (rowNum, rowHeight, rowBlockWidth, columns, type, image, Enemy, ctx) {
 		var that = this;

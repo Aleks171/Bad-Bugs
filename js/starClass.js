@@ -1,5 +1,7 @@
 (function(global) {
 	var app = global.App || {};
+	var Resources = app.utils.Resources;
+	
 	var Star = function(x, y, ctx) {
 		this.sprite = 'images/Star.png';
 		this.location = {
@@ -25,7 +27,7 @@
 		return this.location.y;
 	};
 	Star.prototype.render = function() {
-	   this.ctx.drawImage(Resources.get(this.sprite), this.getLocationX(), this.getLocationY());
+	   this.ctx.drawImage(Resources.get(this.getSprite()), this.getLocationX(), this.getLocationY());
 	};
 	app.Star = Star;
 	global.App = app;

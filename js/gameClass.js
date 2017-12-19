@@ -1,7 +1,7 @@
 var Game = (function(global) {
 	var doc = global.document,
 		win = global.window,
-		Resources = global.Resources,
+		Resources = global.App.utils.Resources,
 		Row = global.App.Row,
 		Score = global.App.Score,
 		Board = global.App.Board,
@@ -128,5 +128,6 @@ var Game = (function(global) {
         'images/Star.png',
         'images/Heart.png'
     ]);
+    console.log(Resources);
     Resources.onReady(init);
 })(this);

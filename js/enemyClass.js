@@ -1,5 +1,7 @@
 (function(global) {
 	var app = global.App || {};
+	var Resources = app.utils.Resources;
+	
 	var Enemy = function(positionY, speed, ctx) {
 	    var bugWidth = 72;
 	    this.ctx = ctx;
