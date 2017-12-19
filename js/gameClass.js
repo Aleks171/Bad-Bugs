@@ -128,6 +128,5 @@ var Game = (function(global) {
         'images/Star.png',
         'images/Heart.png'
     ]);
-    console.log(Resources);
     Resources.onReady(init);
 })(this);

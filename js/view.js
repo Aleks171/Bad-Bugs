@@ -1,6 +1,6 @@
 (function(global) {
     var app = global.App || {},
-        doc = document,
+        doc = global.document,
         view = {};
     view.modal = (function() {
         function appendToBody(element) {
@@ -64,8 +64,13 @@
         //create object to choose a hero
         function createChooseHeroesModal(heroImages) {
             var clickedImage,
-            confirmButton,
-            rejectButton;
+                confirmButton,
+                rejectButton,
+                modal = createModal(),
+                modalContent = createModalContent(modal),
+                modalImages = createModalImages(heroImages),
+                modalText = addText('Choose your character!'),
+                modalButtons = createButtons(modal);
 
             function saveConfirmButton(button) {
                 confirmButton = button;
@@ -127,12 +132,6 @@
                 return clickedImage.getAttribute('src');
             }
 
-            var modal = createModal(),
-                modalContent = createModalContent(modal),
-                modalImages = createModalImages(heroImages),
-                modalText = addText('Choose your character!'),
-                modalButtons = createButtons(modal);
-
             saveConfirmButton(modalButtons.firstElementChild);
             saveRejectButton(modalButtons.firstElementChild.nextSibling);
             attachEventToImages(modalImages, setClickedImage);
@@ -150,6 +149,7 @@
             };
         }
 
+        // function to create modal with game results
         function createResultGameModal(score) {
             var confirmButton,
                 rejectButton,
