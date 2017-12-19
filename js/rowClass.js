@@ -41,6 +41,9 @@
 	Row.prototype.getEnemies = function() {
 		return this.enemies;
 	};
+	Row.prototype.getRowNumber = function() {
+		return this.rowNum;
+	};
 	Row.prototype.getRowBlockWidth = function() {
 		return this.rowBlockWidth;
 	};
@@ -67,7 +70,7 @@
 		return this.rowYposition;
 	};
 	Row.prototype.removeEnemy = function() {
-		this.enemies.shift();
+		this.getEnemies().shift();
 	};
 	Row.prototype.getEnemiesPositionInRow = function() {
 		return this.enemiesPositionInRow;
@@ -88,7 +91,7 @@
 		}
 	};
 	Row.prototype.addEnemy = function(enemy) {
-		this.enemies.push(enemy);
+		this.getEnemies().push(enemy);
 	};
 	Row.prototype.isPlayerOnRow = function(player) {
 		if (this.getRowYposition() - this.getRowHeight()/2 === player.getLocationY()) {
@@ -127,8 +130,8 @@
 		});
 	};
 	Row.prototype.render = function() {
-		for (var column = 0; column < this.columns; column += 1) {
-			this.ctx.drawImage(Resources.get(this.getImage()), column * this.rowBlockWidth, this.rowNum * this.rowHeight);
+		for (var column = 0; column < this.getRowColumns(); column += 1) {
+			this.ctx.drawImage(Resources.get(this.getImage()), column * this.getRowBlockWidth(), this.getRowNumber() * this.getRowHeight());
 		}
 		this.renderEnemies();
 	}
