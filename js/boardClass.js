@@ -143,13 +143,8 @@
     		}
 	    };
 	    this.update = function() {
-	    	// generate enemies fn
 	    	this.generateEnemies();
-
-	    	// update enemies location fn
     	 	this.updateEnemies();
-
-	    	// remove enemies that are out of row fn
 	    	this.removeOutOfRowEnemies();
 	    };
 	    this.updateEnemies = function() {
@@ -192,11 +187,8 @@
 	    	});
 	    };
 	    this.render = function() {
-	    	// render rows
 	    	this.renderRows();
-	    	// render player
 	    	this.renderPlayer();
-	    	// render star
 	    	this.renderStar();
 	    };
 	    this.resetPlayersLocation = function() {
@@ -226,9 +218,7 @@
 	    	player.initLives();
 	    };
 	    this.init = function() {
-	    	//create player
 	    	this.createPlayer();
-	    	// init player's input
 	    	this.instantiatePlayerInput();
 	    };
 	};

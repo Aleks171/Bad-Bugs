@@ -9,12 +9,24 @@
 			x: x,
 			y: y
 		};
-		this.getWidth = function() {
-			return this.spriteWidth;
-		};
+	};
+	Life.prototype.getSprite = function() {
+		return this.sprite;
+	};
+	Life.prototype.getSpriteWidth = function() {
+		return this.spriteWidth;
+	};
+	Life.prototype.getSpriteHeight = function() {
+		return this.spriteHeight;
+	};
+	Life.prototype.getLocationX = function() {
+		return this.location.x;
+	};
+	Life.prototype.getLocationY = function() {
+		return this.location.y;
 	};
 	Life.prototype.render = function() {
-		this.ctx.drawImage(Resources.get(this.sprite), this.location.x, this.location.y, this.spriteWidth/2.5, this.spriteHeight/2.5);
+		this.ctx.drawImage(Resources.get(this.getSprite()), this.getLocationX(), this.getLocationY(),this.getSpriteWidth()/2.5, this.getSpriteHeight()/2.5);
 	};
 	app.Life = Life;
 	global.App = app;

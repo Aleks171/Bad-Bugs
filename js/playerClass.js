@@ -48,7 +48,7 @@
         this.addLives = function() {
             for (var i = 0, startPositionX = this.getLimitX() - this.getLimitX()/3, startPositionY = -15; i < this.initialLivesQuantity; i += 1) {
                 var life = new Life(startPositionX, startPositionY, ctx),
-                    lifeWidth = life.getWidth()/2;
+                    lifeWidth = life.getSpriteWidth()/2;
                 this.getLives().push(life);
                 startPositionX += lifeWidth;
             }

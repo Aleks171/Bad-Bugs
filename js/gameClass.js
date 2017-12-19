@@ -103,7 +103,7 @@ var Game = (function(global) {
     	}
     }
 
-    // Render player, rows, enemies, score etc.
+    // Render board, score etc.
     function render() {
 		clear();
     	board.render();
