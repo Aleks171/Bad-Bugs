@@ -10,8 +10,7 @@ var Game = (function(global) {
 		Star = global.App.Star,
 		Life = global.App.Life,
 		view = global.App.view,
-		canvas = doc.createElement('canvas'),
-		ctx = canvas.getContext('2d'),
+		Canvas = global.App.view.Canvas,
         heroesImages = [
         	"images/char-boy.png",
             "images/char-cat-girl.png",
@@ -30,16 +29,18 @@ var Game = (function(global) {
 	    	],
     		columns: 5
     	},
+    	canvas = Canvas(),
+    	ctx = canvas.getContext(),
         score = new Score(0, 30, ctx),
         board = new Board(level, Player, Enemy, Row, Star, Life, ctx),
         animationID;
 
     function init() {
     	board.init();
-    	// Canvas dimensions
-    	canvas.width = board.getWidth();
-    	canvas.height = board.getHeight();
-    	doc.body.appendChild(canvas);
+    	// set canvas dimensions
+    	canvas.setWidth(board.getWidth());
+    	canvas.setHeight(board.getHeight());
+    	canvas.appendCanvasTo(doc.body);
     	newGame();
     }
 
@@ -111,7 +112,7 @@ var Game = (function(global) {
     }
 
     function clear() {
-    	ctx.clearRect(0,0,canvas.width,canvas.height);
+    	canvas.clearCanvas();
     }
     
     // Load images

@@ -108,8 +108,7 @@
         load: load,
         get: get,
         onReady: onReady,
-        isReady: isReady,
-        resourceCache: resourceCache
+        isReady: isReady
     };
     app.utils = utils;
     global.App = app;
