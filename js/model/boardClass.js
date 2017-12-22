@@ -1,26 +1,54 @@
 (function(global) {
 	var app = global.App || {};
-	var Board = function(level, Player, Enemy, Row, Star, Life, ctx) {
+	var Board = function(Player, Enemy, Row, Star, Life, ctx) {
 		var that = this,
-	    	rowsQuantity = level.rows.length;
+			boardLevel;
 
-	    this.numColumns = level.columns;
+    	this.rowsQuantity;
+	    this.numColumns;
     	this.imageWidth = 101;
 	    this.imageHeight = 83;
 	    this.boardOffset = 88;
-    	this.boardHeight = rowsQuantity * this.imageHeight + this.boardOffset;
-		this.boardWidth = this.imageWidth * this.numColumns;
-		this.playersMoveLimitY = (rowsQuantity-1) * this.imageHeight;
-    	this.ctx = ctx;
 		this.star;
+		this.setLevel = function(level) {
+			this.setBoardLevel(level);
+			// set board parameters
+			this.rowsQuantity = level.rows.length;
+			this.numColumns = level.columns;
+			// set board dimentions
+			this.boardHeight = this.getRowsQuantity() * this.getImageHeight() + this.getBoardOffset();
+			this.boardWidth = this.getImageWidth() * this.getNumColumns();
+			this.setPlayersMoveLimitY();
+		};
+		this.getBoardLevel = function() {
+			return boardLevel;
+		};
+		this.setBoardLevel = function(level) {
+			boardLevel = level;
+		};
+		this.getNumColumns = function() {
+			return this.numColumns;
+		};
+		this.getBoardOffset = function() {
+			return this.boardOffset;
+		};
+		this.getImageHeight = function() {
+			return this.imageHeight;
+		};
+		this.getImageWidth = function() {
+			return this.imageWidth;
+		};
+		this.setPlayersMoveLimitY = function() {
+			this.playersMoveLimitY = (this.getRowsQuantity()-1) * this.getImageHeight();
+		};
+		this.getRowsQuantity = function() {
+			return this.rowsQuantity;
+		};
 		this.getHeight = function() {
 			return this.boardHeight;
 		};
 		this.getWidth = function() {
 			return this.boardWidth;
-		};
-		this.getHeight = function() {
-			return this.boardHeight;
 		};
 		this.getPlayersMoveLimitY = function() {
 			return this.playersMoveLimitY;
@@ -61,12 +89,12 @@
 			return {rowYposition: rowYposition, rowXposition: rowXposition};
 		};
 		this.addRow = function(rowNum, rowType, rowImage) {
-			this.getRows().push(new Row(rowNum, this.imageHeight, this.imageWidth, this.numColumns, rowType, rowImage, Enemy, this.ctx));
+			this.getRows().push(new Row(rowNum, this.getImageHeight(), this.getImageWidth(), this.getNumColumns(), rowType, rowImage, Enemy, ctx));
 		};
 		this.instantiateRows = function() {
 			this.rows = [];
-	    	for (var rowNum = 0, row; rowNum < rowsQuantity; rowNum += 1) {
-	    		row = level.rows[rowNum];
+	    	for (var rowNum = 0, row; rowNum < this.getRowsQuantity(); rowNum += 1) {
+	    		row = boardLevel.rows[rowNum];
 		        if (row === 'images/water-block.png') {
 		            this.addRow(rowNum, 'water-block', 'images/water-block.png');
 		        }
@@ -83,7 +111,7 @@
 	    };
 	    this.createStar = function() {
 	    	var coordinates = this.getRandomCoordinateOnBoard();
-    		this.star = new Star(coordinates.rowXposition, coordinates.rowYposition, this.ctx);
+    		this.star = new Star(coordinates.rowXposition, coordinates.rowYposition, ctx);
 	    };
 	    this.renderStar = function() {
 	    	if (this.star) {
@@ -201,7 +229,7 @@
 	    	this.getPlayer().holdInput(time);
 	    };
 	    this.createPlayer = function() {
-	    	var player = new Player(this.getWidth(), this.getPlayersMoveLimitY(), this.imageWidth, this.imageHeight, Life, ctx);
+	    	var player = new Player(this.getWidth(), this.getPlayersMoveLimitY(), this.getImageWidth(), this.getImageHeight(), Life, ctx);
 	    	this.player = player;
 	    };
 	    this.setPlayersImage = function(imgSrc) {

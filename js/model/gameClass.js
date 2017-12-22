@@ -17,45 +17,76 @@ var Game = (function(global) {
             "images/char-horn-girl.png",
             "images/char-pink-girl.png",
             "images/char-princess-girl.png"],
-    	level = {
-    		rows: [
-	        'images/water-block.png',
-	        'images/stone-block.png',
-	        'images/stone-block.png',
-	        'images/stone-block.png',
-	        'images/stone-block.png',
-	        'images/grass-block.png',
-	        'images/grass-block.png'
-	    	],
-    		columns: 5
-    	},
     	canvas = Canvas(),
     	ctx = canvas.getContext(),
         score = new Score(0, 30, ctx),
-        board = new Board(level, Player, Enemy, Row, Star, Life, ctx),
+        board = new Board(Player, Enemy, Row, Star, Life, ctx),
         animationID;
-
-    function init() {
-    	board.init();
-    	// set canvas dimensions
-    	canvas.setWidth(board.getWidth());
-    	canvas.setHeight(board.getHeight());
-    	canvas.appendCanvasTo(doc.body);
-    	newGame();
-    }
-
+   
     function newGame() {
     	score.clearScore();
-    	board.instantiateRows();
-    	board.createStar();
-    	board.resetPlayer();
+    	// modal to choose game params
     	var modal = view.modal.createChooseHeroesModal(heroesImages);
-        modal.onConfirm(function(){
-        	var imageSrc = modal.getChosenImageSrc();
-        	board.setPlayersImage(imageSrc);
+        modal.onConfirm(function(modalData){
+        	setDifficulty(modalData.difficulty);
+        	board.instantiateRows();
+        	board.init();
+        	board.resetPlayer();
+        	board.setPlayersImage(modalData.imageSrc);
         	board.holdPlayersInput(4000);
+        	canvas.setWidth(board.getWidth());
+    		canvas.setHeight(board.getHeight());
+    		canvas.appendCanvasTo(doc.body);
         	main();
         });
+    }
+
+    function setDifficulty(difficulty) {
+    	var level;
+    	if (difficulty === 'easy') {
+    		level = {
+	    		rows: [
+		        'images/water-block.png',
+		        'images/stone-block.png',
+		        'images/stone-block.png',
+		        'images/stone-block.png',
+		        'images/grass-block.png',
+		        'images/grass-block.png'
+		    	],
+	    		columns: 5
+    		};
+    	}
+    	if (difficulty === 'medium') {
+    		level = {
+	    		rows: [
+		        'images/water-block.png',
+		        'images/stone-block.png',
+		        'images/stone-block.png',
+		        'images/stone-block.png',
+		        'images/stone-block.png',
+		        'images/grass-block.png',
+		        'images/grass-block.png'
+		    	],
+	    		columns: 5
+    		};
+    	}
+    	if (difficulty === 'hard') {
+    		level = {
+	    		rows: [
+		        'images/water-block.png',
+		        'images/stone-block.png',
+		        'images/stone-block.png',
+		        'images/stone-block.png',
+		        'images/stone-block.png',
+		        'images/stone-block.png',
+		        'images/stone-block.png',
+		        'images/grass-block.png',
+		        'images/grass-block.png'
+		    	],
+	    		columns: 7
+    		};
+    	}
+    	board.setLevel(level);
     }
 
     function main() {
@@ -129,5 +160,5 @@ var Game = (function(global) {
         'images/Star.png',
         'images/Heart.png'
     ]);
-    Resources.onReady(init);
+    Resources.onReady(newGame);
 })(this);
