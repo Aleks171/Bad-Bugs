@@ -1,6 +1,6 @@
 (function(global) {
-    var app = global.App || {};
-    var Resources = app.utils.Resources;
+    var app = global.App || {},
+        Resources = app.utils.Resources;
 
     var Player = function(limitX, limitY, moveStepX, moveStepY, Life, ctx) {
         var that = this;

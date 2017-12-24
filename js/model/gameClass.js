@@ -1,4 +1,4 @@
-var Game = (function(global) {
+(function(global) {
 	var doc = global.document,
 		win = global.window,
 		Resources = global.App.utils.Resources,

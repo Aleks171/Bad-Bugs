@@ -146,7 +146,7 @@
 
             function createRadios() {
                 function createRadioButton(id, name, value, checked) {
-                    var x = document.createElement('INPUT');
+                    var x = doc.createElement('INPUT');
                     x.setAttribute("id", id);
                     x.setAttribute("type", "radio");
                     x.setAttribute("name", name);
@@ -157,17 +157,17 @@
                     return x;
                 }
                 function createLableForRadio(radio, text) {
-                    var lb = document.createElement('label'),
-                        span1 = document.createElement('span'),
-                        span2 = document.createElement('span'),
-                        text = document.createTextNode(text);;
+                    var lb = doc.createElement('label'),
+                        span1 = doc.createElement('span'),
+                        span2 = doc.createElement('span'),
+                        text = doc.createTextNode(text);;
                     lb.setAttribute("for", radio.id);
                     lb.appendChild(span1);
                     span1.appendChild(span2);
                     lb.appendChild(text);
                     return lb;
                 }
-                var div = document.createElement('div');
+                var div = doc.createElement('div');
                 div.classList.add('myRadio');
                 var radio1 = createRadioButton('myRadio1', 'difficulty', 'easy'),
                     radio2 = createRadioButton('myRadio2', 'difficulty', 'medium', 'checked'),

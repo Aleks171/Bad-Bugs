@@ -1,6 +1,6 @@
 (function(global) {
-	var app = global.App || {};
-	var Resources = app.utils.Resources;
+	var app = global.App || {},
+		Resources = app.utils.Resources;
 	
 	var Star = function(x, y, ctx) {
 		this.sprite = 'images/Star.png';
