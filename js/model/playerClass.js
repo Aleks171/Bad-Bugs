@@ -4,7 +4,6 @@
 
     var Player = function(limitX, limitY, moveStepX, moveStepY, Life, ctx) {
         var that = this;
-        this.ctx = ctx;
         this.sprite;
         this.playerWidth = 81;
         this.limitX = limitX;
@@ -121,7 +120,7 @@
             };
         };
         this.render = function() {
-            this.ctx.drawImage(Resources.get(this.getSprite()), this.getLocationX(), this.getLocationY());
+            ctx.drawImage(Resources.get(this.getSprite()), this.getLocationX(), this.getLocationY());
             this.renderLives();
         };
         this.renderLives = function() {

@@ -43,7 +43,6 @@
                 buttons = doc.createElement('div');
             button1.classList.add('btn', 'success');
             button1.innerHTML = 'OK';
-            //button1.addEventListener('click', function(e) {e.preventDefault();});
             button2.classList.add('btn', 'danger');
             button2.innerHTML = 'NO';
             button2.addEventListener('click', function(e) {e.preventDefault(); closeModal(modal);});
@@ -61,8 +60,11 @@
             button.addEventListener('click', function(e) {
                 e.preventDefault();
                 var data = {};
-                if (getChosenImageSrc || getDifficulty) {
+                if (getChosenImageSrc) {
                     data.imageSrc = getChosenImageSrc();
+                    
+                }
+                if (getDifficulty) {
                     data.difficulty = getDifficulty();
                 }
                 callback(data);

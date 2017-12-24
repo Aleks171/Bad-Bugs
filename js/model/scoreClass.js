@@ -3,7 +3,6 @@
 	var Score = function(posX, posY, ctx) {
 		this.posX = posX;
 		this.posY = posY;
-		this.ctx = ctx;
 		this.score = 0;
 		this.update = function(points) {
 			this.score += points;
