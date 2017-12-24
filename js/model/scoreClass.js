@@ -4,19 +4,31 @@
 		this.posX = posX;
 		this.posY = posY;
 		this.score = 0;
-		this.update = function(points) {
-			this.score += points;
-	        ctx.fillText("Score: " + this.score, this.posX, this.posY);
-		};
-		this.render = function() {
-			ctx.font = "30px Arial";
-	        ctx.fillText("Score: " + this.score, this.posX, this.posY);
+		this.setScore = function(score) {
+			this.score = score;
 		};
 		this.getScore = function() {
 			return this.score;
 		};
-		this.clearScore = function(argument) {
-			this.score = 0;
+		this.getPosX = function() {
+			return this.posX;
+		};
+		this.getPosY = function() {
+			return this.posY;
+		};
+		this.update = function(points) {
+			this.score += points;
+		};
+		this.render = function() {
+			ctx.font = "30px Arial";
+			ctx.fillStyle = "black";
+	        ctx.fillText("Score: " + this.getScore(), this.getPosX(), this.getPosY());
+		};
+		this.getScore = function() {
+			return this.score;
+		};
+		this.clearScore = function() {
+			this.setScore(0);
 		};
 	}
 	app.Score = Score;

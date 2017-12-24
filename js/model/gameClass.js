@@ -5,6 +5,7 @@ var Game = (function(global) {
 		Row = global.App.Row,
 		Score = global.App.Score,
 		Board = global.App.Board,
+		inputTimer = global.App.inputTimer,
 		Player = global.App.Player,
 		Enemy = global.App.Enemy,
 		Star = global.App.Star,
@@ -19,6 +20,7 @@ var Game = (function(global) {
             "images/char-princess-girl.png"],
     	canvas = Canvas(),
     	ctx = canvas.getContext(),
+    	inputReleaseIndicator,
         score = new Score(0, 30, ctx),
         board = new Board(Player, Enemy, Row, Star, Life, ctx),
         animationID;
@@ -34,9 +36,11 @@ var Game = (function(global) {
         	board.resetPlayer();
         	board.setPlayersImage(modalData.imageSrc);
         	board.holdPlayersInput(4000);
+        	inputReleaseIndicator = new inputTimer(board.getWidth()/2, 30, ctx);
         	canvas.setWidth(board.getWidth());
     		canvas.setHeight(board.getHeight());
     		canvas.appendCanvasTo(doc.body);
+    		inputReleaseIndicator.startTimer();
         	main();
         });
     }
@@ -103,6 +107,7 @@ var Game = (function(global) {
 
     function update() {
 		board.update();
+		inputReleaseIndicator.update();
 		updateOnCollision();
 		updateWhenPlayerOnSpecificRow('water-block');
 		updateOnItemCollection();
@@ -140,6 +145,7 @@ var Game = (function(global) {
 		clear();
     	board.render();
     	score.render();
+    	inputReleaseIndicator.render();
     }
 
     function clear() {
